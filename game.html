@@ -1,0 +1,40 @@
+<html>
+<body>
+<link rel="stylesheet" href="style.css">
+<canvas width="300" height="300"></canvas>
+<script>
+var canvas = document.querySelector('canvas');
+var ctx = canvas.getContext('2d');
+ctx.beginPath();
+ctx.fillStyle = 'red';
+ctx.fillRect(0,0,300,300);
+ctx.fillStyle = 'green';
+ctx.font = 'bold 40px Monospace';
+ctx.textBaseline = 'top';
+// ctx.fillRect(0,0,150,150);
+// ctx.fillText('hello', 10, 10);
+
+function resize() {
+  // Our canvas must cover full height of screen
+  // regardless of the resolution
+  var height = window.innerHeight;
+  
+  // So we need to calculate the proper scaled width
+  // that should work well with every resolution
+  let ow = 300;
+  let oh = 300;
+  var ratio = canvas.width/canvas.height;
+  var width = height * ratio;
+  
+  canvas.style.width = width+'px';
+  canvas.style.height = height+'px';
+
+  var ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.fillStyle = 'green';
+  ctx.fillRect(0,0,canvas.width * 0.5, canvas.height * 0.75);
+}
+
+window.addEventListener('load', resize, false);
+window.addEventListener('resize', resize, false);
+</script>
