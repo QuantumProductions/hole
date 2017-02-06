@@ -2,15 +2,16 @@
 <body>
 <link rel="stylesheet" href="style.css">
 <canvas width="300" height="300"></canvas>
+<script src="display.js"></script>
+<script src="board.js"></script>
 <script>
+window.display = new Display();
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
-ctx.beginPath();
-ctx.fillStyle = 'red';
-ctx.fillRect(0,0,300,300);
-ctx.fillStyle = 'green';
-ctx.font = 'bold 40px Monospace';
-ctx.textBaseline = 'top';
+
+// ctx.fillStyle = 'green';
+// ctx.font = 'bold 40px Monospace';
+// ctx.textBaseline = 'top';
 // ctx.fillRect(0,0,150,150);
 // ctx.fillText('hello', 10, 10);
 
@@ -28,11 +29,9 @@ function resize() {
   
   canvas.style.width = width+'px';
   canvas.style.height = height+'px';
-
-  var ctx = canvas.getContext('2d');
-  ctx.beginPath();
-  ctx.fillStyle = 'green';
-  ctx.fillRect(0,0,canvas.width * 0.5, canvas.height * 0.75);
+  
+  window.display.w = width;
+  window.display.h = height;
 }
 
 window.addEventListener('load', resize, false);
