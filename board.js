@@ -22,7 +22,7 @@ class Board extends View {
         let tileX = x + (j * 5 * m);
         let tileY = y + (i * 5 * m);
         ctt.beginPath();
-        ctt.fillStyle = Color[s[i][j]];
+        ctt.fillStyle =  Color[s[i][j].status];
         ctt.fillRect(x + j * size + 0.05 * size,y + i * size + 0.05 * size, size * 0.9, size * 0.9);
       }
     }
