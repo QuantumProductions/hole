@@ -5,9 +5,14 @@ class Display {
     this.installTime();
     this.installLoops();
     this.installLink();
-    this.state = {};
+    this.state = {"board" : [["x", "empty", "empty", "empty", "empty"],
+                              ["empty", "empty", "empty", "empty", "empty"],
+                              ["empty", "empty", "empty", "empty", "empty"],
+                              ["empty", "empty", "empty", "empty", "empty"],
+                              ["empty", "empty", "empty", "empty", "o"]]};
     this.cnv = document.querySelector('canvas');
     this.ctt = this.cnv.getContext('2d');
+    this.board = new Board(0.2, 0.2, 0.6, 0.6);
   }
 
   installLink() {
@@ -26,12 +31,12 @@ class Display {
 
   draw() {
     this.ctt.beginPath();
-    this.ctt.fillStyle = '#BBBBBB';
+    this.ctt.fillStyle = '#2980b9';
     this.ctt.fillRect(0,0,300,300);
     // this.ctt.beginPath();
     // this.ctt.fillStyle = 'green';
     // this.ctt.fillRect(0,0,this.cnv.width * 0.5, this.cnv.height * 0.75);
-    Board.renderState(this.ctt, this.cnv, this.state);
+    this.board.renderState(this.ctt, this.cnv, this.state.board);
   }
 
   loop() {

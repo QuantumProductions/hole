@@ -2,9 +2,12 @@
 <body>
 <link rel="stylesheet" href="style.css">
 <canvas width="300" height="300"></canvas>
+<script src="color.js"></script>
 <script src="display.js"></script>
+<script src="view.js"></script>
 <script src="board.js"></script>
 <script>
+Color.setup();
 window.display = new Display();
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
