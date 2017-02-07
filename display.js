@@ -31,7 +31,7 @@ class Display {
 
   draw() {
     this.ctt.beginPath();
-    this.ctt.fillStyle = '#2980b9';
+    this.ctt.fillStyle = Color.bg;
     this.ctt.fillRect(0,0,300,300);
     // this.ctt.beginPath();
     // this.ctt.fillStyle = 'green';

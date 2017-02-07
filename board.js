@@ -16,9 +16,15 @@ class Board extends View {
       var row = s[i];
       for (var j = 0; j < row.length; j++) {
         let tile = row[j];
+
+        ctt.fillStyle = Color.outline;
+        ctt.beginPath();
+        ctt.arc(x + (j * (5 * m)), y + (i * (5 *m)), 0.9 * tileR, 2 * Math.PI, false);
+        ctt.fill();
+
         ctt.fillStyle = Color[tile];
         ctt.beginPath();
-        ctt.arc(x + (j * (5 * m)), y + (i * (5 *m)), tileR, 2 * Math.PI, false);
+        ctt.arc(x + (j * (5 * m)), y + (i * (5 *m)), 0.9 * tileR, 2 * Math.PI, false);
         ctt.fill();
       }
     }
