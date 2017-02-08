@@ -5,27 +5,22 @@ class Display {
     this.installTime();
     this.installLoops();
     this.installLink();
-    this.state = {"board" : [["x", "empty", "empty", "empty", "empty"],
-                              ["empty", "empty", "empty", "empty", "empty"],
-                              ["empty", "empty", "empty", "empty", "empty"],
-                              ["empty", "empty", "empty", "empty", "empty"],
-                              ["empty", "empty", "empty", "empty", "o"]]};
+    this.state = {"board" : []};
+    // this.state = {"board" : [["x", "empty", "empty", "empty", "empty"],
+    //                           ["empty", "empty", "empty", "empty", "empty"],
+    //                           ["empty", "empty", "empty", "empty", "empty"],
+    //                           ["empty", "empty", "empty", "empty", "empty"],
+    //                           ["empty", "empty", "empty", "empty", "o"]]};
     this.cnv = document.querySelector('canvas');
     this.ctt = this.cnv.getContext('2d');
     this.board = new Board(0.2, 0.2, 0.6, 0.6);
-  }
-
-  parseInfo(res) {
-    let j = JSON.parse(JSON.parse(res));
-    console.log(j);
-    console.log(j.tableCache[0].board[0][0]);
   }
 
   installLink() {
     http.get({
       url: "http://localhost:8080/info",
       onload: function() { //extract to standard overridable callback
-        window.display.parseInfo(this.responseText);
+        window.display.state = JSON.parse(JSON.parse(this.responseText));
       }
     });    
   }
@@ -47,7 +42,7 @@ class Display {
     // this.ctt.beginPath();
     // this.ctt.fillStyle = 'green';
     // this.ctt.fillRect(0,0,this.cnv.width * 0.5, this.cnv.height * 0.75);
-    this.board.renderState(this.ctt, this.cnv, this.state.board);
+    this.board.renderState(this.ctt, this.cnv, this.state.tableCache[0].board);
   }
 
   loop() {
