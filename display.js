@@ -15,8 +15,19 @@ class Display {
     this.board = new Board(0.2, 0.2, 0.6, 0.6);
   }
 
+  parseInfo(res) {
+    let j = JSON.parse(JSON.parse(res));
+    console.log(j);
+    console.log(j.tableCache[0].board[0][0]);
+  }
+
   installLink() {
-    //N/A for now, todo: http
+    http.get({
+      url: "http://localhost:8080/info",
+      onload: function() { //extract to standard overridable callback
+        window.display.parseInfo(this.responseText);
+      }
+    });    
   }
 
   installTime() {
