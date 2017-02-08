@@ -20,12 +20,32 @@ class Board extends View {
         let tile = row[j];
         let tileX = x + (j * 5 * m);
         let tileY = y + (i * 5 * m);
-        ctt.beginPath();
-        let owner = [s[i][j].owner];
-        ctt.fillStyle = Color[owner];
-        ctt.fillRect(x + j * size + 0.05 * size,y + i * size + 0.05 * size, size * 0.9, size * 0.9);
+        this.drawTile(x + (j * size), y + (i * size), s[i][j], ctt, size);
       }
     }
-    
+  }
+
+  drawTile(x, y, tile, ctt, size) {
+    ctt.beginPath();
+    let owner = tile.owner;
+    ctt.fillStyle = Color[owner]; 
+    ctt.fillRect(x + 0.05 * size, y + 0.05 * size, size * 0.9, size * 0.9);
+
+    let ridge = false;
+    let recent = false;
+    if (tile.status == "ridge_recent") {
+      ridge = true;
+      recent = true;
+    } else if (tile.status == "recent") {
+      recent = true;
+    } else if (tile.status == "ridge") {
+      ridge = true;
+    }
+
+    ctt.beginPath();
+    if (recent) {
+      ctt.fillRect(x + 0.4 * size, y + 0.4 * size, size * 0.2, size * 0.2);
+      ctt.fill();
+    }
   }
 }
