@@ -12,6 +12,7 @@ class Color {
     Color.null = "#576666";
     Color.bg = "#4c5959";
     Color.boardBg = "#4c5959";
+    Color.recent = "#FFFFFF";
     // Color.bg = "#2980b9";
     Color.outline = "#CCCCCC";
     Color.stroke1 = "#000000";

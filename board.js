@@ -43,7 +43,8 @@ class Board extends View {
     }
 
     ctt.beginPath();
-    if (recent) {
+    if (recent || true) {
+      ctt.fillStyle = Color.recent;
       ctt.fillRect(x + 0.4 * size, y + 0.4 * size, size * 0.2, size * 0.2);
       ctt.fill();
     }
