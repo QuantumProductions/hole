@@ -43,10 +43,38 @@ class Board extends View {
     }
 
     ctt.beginPath();
-    if (recent || true) {
+    if (recent) {
       ctt.fillStyle = Color.recent;
       ctt.fillRect(x + 0.4 * size, y + 0.4 * size, size * 0.2, size * 0.2);
       ctt.fill();
     }
+
+    if (ridge) {
+      var centerMargin = 0.3* size;
+
+      var wallSize = 0.1 * size;
+      var topLeft = [x + wallSize, y + wallSize];
+      var bottomLeft = [x + wallSize, y + size - wallSize];
+      var topRight = [x + size - wallSize, y  +wallSize];
+      var bottomRight = [x + size - wallSize, y  + size - wallSize];
+
+      ctt.beginPath();
+      ctt.moveTo(topLeft[0], topLeft[1]);
+      ctt.lineTo(bottomLeft[0], bottomLeft[1]);
+      ctt.lineTo(bottomRight[0], bottomRight[1]);
+      ctt.lineTo(topRight[0], topRight[1]);
+      ctt.lineTo(topLeft[0], topLeft[1]);
+      ctt.strokeStyle = Color.ridge;
+      // ctt.lineWidth = 1;
+      ctt.stroke();
+      ctt.closePath();
+      // ctt.lineWidth = 1;
+      } else if (tile.wall != null) {
+        // drawWall(x, y, tile.wall, ctt, size);
+      }
+  }
+
+  drawWall(x, y, direction, ctt, size) {
+
   }
 }
