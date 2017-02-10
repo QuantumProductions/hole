@@ -4,7 +4,7 @@ class Display {
   constructor() {
     this.installTime();
     this.installLoops();
-    this.installLink();
+    this.getInfo();
     this.state = {"board" : []};
     this.cnv = document.querySelector('canvas');
     this.ctt = this.cnv.getContext('2d');
@@ -12,7 +12,7 @@ class Display {
     this.clock = new Clock(0,0, 1, 1);
   }
 
-  installLink() {
+  getInfo() {
     http.get({
       url: "http://localhost:8080/info",
       onload: function() { //extract to standard overridable callback
@@ -60,6 +60,8 @@ class Display {
     }
     
     this.draw();
+
+    this.getInfo();
 
     window.requestAnimationFrame(this.loop.bind(this));
   }
