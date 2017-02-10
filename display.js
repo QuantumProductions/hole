@@ -5,11 +5,21 @@ class Display {
     this.installTime();
     this.installLoops();
     this.getInfo();
+    this.join();
     this.state = {"board" : []};
     this.cnv = document.querySelector('canvas');
     this.ctt = this.cnv.getContext('2d');
     this.board = new Board(0.2, 0.2, 0.6, 0.6);
     this.clock = new Clock(0,0, 1, 1);
+  }
+
+  join() {
+    http.get({
+      url: "http://localhost:8080/join",
+      onload: function() { //extract to standard overridable callback
+        window.display.state = undefined;
+      }
+    });    
   }
 
   getInfo() {
