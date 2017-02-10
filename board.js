@@ -33,6 +33,7 @@ class Board extends View {
 
     let ridge = false;
     let recent = false;
+    let spawn = false;
     if (tile.status == "ridge_recent") {
       ridge = true;
       recent = true;
@@ -40,16 +41,33 @@ class Board extends View {
       recent = true;
     } else if (tile.status == "ridge") {
       ridge = true;
+    } else if (tile.status == "spawn") {
+      spawn = true;
     }
 
-    ctt.beginPath();
-    if (recent) {
-      ctt.fillStyle = Color.recent;
-      ctt.fillRect(x + 0.4 * size, y + 0.4 * size, size * 0.2, size * 0.2);
+    
+    if (recent || spawn) {
+      ctt.beginPath();
+      ctt.strokeStyle = Color.recent;
+      if (tile.owner == 'x') {
+        ctx.moveTo(x + 1/3 * size, y + 1/3 * size);
+        ctx.lineTo(x + 2/3 * size, y + 2/3 * size);
+        ctx.moveTo(x + 2/3 * size, y + 1/3 * size);
+        ctx.lineTo(x + 1/3 * size, y + 2/3 * size);
+        ctx.stroke();
+      } else if (tile.owner == 'o') {
+        ctx.lineWidth = 2;
+        ctt.arc(x + (0.5 * size), y + 0.5 * size, 1/4 * size, 0, 2 * Math.PI, false);
+        ctx.stroke();
+        ctx.lineWidth = 1;
+      }
+      // ctt.fillRect(x + 0.4 * size, y + 0.4 * size, size * 0.2, size * 0.2);
+
       ctt.fill();
     }
 
     if (ridge) {
+      ctt.beginPath();
       var centerMargin = 0.3* size;
 
       var wallSize = 0.1 * size;
