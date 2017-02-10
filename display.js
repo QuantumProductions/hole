@@ -5,21 +5,13 @@ class Display {
     this.installTime();
     this.installLoops();
     this.getInfo();
-    this.join();
     this.state = {"board" : []};
     this.cnv = document.querySelector('canvas');
     this.ctt = this.cnv.getContext('2d');
     this.board = new Board(0.2, 0.2, 0.6, 0.6);
     this.clock = new Clock(0,0, 1, 1);
-  }
-
-  join() {
-    http.get({
-      url: "http://localhost:8080/join",
-      onload: function() { //extract to standard overridable callback
-        window.display.state = undefined;
-      }
-    });    
+    this.actions = new Actions(0, 0, 1, 1);
+    this.tableIndex = 0;
   }
 
   getInfo() {
@@ -45,11 +37,16 @@ class Display {
     this.ctt.beginPath();
     this.ctt.fillStyle = Color.bg;
     this.ctt.fillRect(0,0,1200,1200);
-    // this.ctt.beginPath();
-    // this.ctt.fillStyle = 'green';
-    // this.ctt.fillRect(0,0,this.cnv.width * 0.5, this.cnv.height * 0.75);
-    this.board.renderState(this.ctt, this.cnv, this.state.tableCache[0].board);
-    this.clock.renderState(this.ctt, this.cnv, this.state.tableCache[0].clock);
+
+    if (this.state.tableCache) {
+      let table = this.state.tableCache[this.tableIndex];
+
+      this.board.renderState(this.ctt, this.cnv, table.board);
+      this.clock.renderState(this.ctt, this.cnv, table.clock);
+      this.actions.renderState(this.ctt, this.cnv, table.actions);
+    
+    }
+    
   }
 
   loop() {
