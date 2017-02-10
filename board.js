@@ -44,7 +44,6 @@ class Board extends View {
     } else if (tile.status == "spawn") {
       spawn = true;
     }
-
     
     if (recent || spawn) {
       ctt.beginPath();
@@ -83,16 +82,43 @@ class Board extends View {
       ctt.lineTo(topRight[0], topRight[1]);
       ctt.lineTo(topLeft[0], topLeft[1]);
       ctt.strokeStyle = Color.ridge;
-      // ctt.lineWidth = 1;
       ctt.stroke();
       ctt.closePath();
-      // ctt.lineWidth = 1;
-      } else if (tile.wall != null) {
-        // drawWall(x, y, tile.wall, ctt, size);
-      }
+    } else if (tile.wall != "none") {
+      this.drawWall(x, y, tile.wall, ctt, size);
+    }
   }
 
   drawWall(x, y, direction, ctt, size) {
+    var wallOrigin = null;
+    var wallEnd = null;
+    var wallSize = 0.1 * size;
+    var topLeft = [x + wallSize, y + wallSize];
+    var bottomLeft = [x+ wallSize, y + size - wallSize];
+    var topRight = [x + size - wallSize, y + wallSize];
+    var bottomRight = [x + size - wallSize, y + size - wallSize];
 
+    if (direction == "west") {
+      wallOrigin = bottomLeft;
+      wallEnd = topLeft;
+    } else if (direction == "south") {
+      wallOrigin = bottomLeft;
+      wallEnd = bottomRight;
+    } else if (direction == "east") {
+      wallOrigin = bottomRight;
+      wallEnd = topRight;
+    } else if (direction == "north") {
+      wallOrigin = topRight;
+      wallEnd = topLeft;
+    }
+
+    ctt.beginPath();
+    ctt.moveTo(wallOrigin[0], wallOrigin[1]);
+    ctt.lineTo(wallEnd[0], wallEnd[1]);
+    ctt.strokeStyle = Color.wall;
+    ctt.lineWidth = 2;
+    ctt.stroke();
+    ctt.closePath();
+    ctt.lineWidth = 1;
   }
 }
