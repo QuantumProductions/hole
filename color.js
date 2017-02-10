@@ -16,6 +16,7 @@ class Color {
     // Color.ridge = "#000000";
     Color.ridge = "#8c9999";
     Color.wall = "#222222"; 
+    Color.clock = "#668844";
     // Color.bg = "#2980b9";
     Color.outline = "#CCCCCC";
     Color.stroke1 = "#000000";

@@ -9,7 +9,7 @@ class Display {
     this.cnv = document.querySelector('canvas');
     this.ctt = this.cnv.getContext('2d');
     this.board = new Board(0.2, 0.2, 0.6, 0.6);
-    this.clock = new Clock();
+    this.clock = new Clock(0,0, 1, 1);
   }
 
   installLink() {
@@ -39,6 +39,7 @@ class Display {
     // this.ctt.fillStyle = 'green';
     // this.ctt.fillRect(0,0,this.cnv.width * 0.5, this.cnv.height * 0.75);
     this.board.renderState(this.ctt, this.cnv, this.state.tableCache[0].board);
+    this.clock.renderState(this.ctt, this.cnv, this.state.tableCache[0].clock);
   }
 
   loop() {
