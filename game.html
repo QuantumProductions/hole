@@ -3,11 +3,19 @@
 <body bgcolor="#4c5959">
 <link rel="stylesheet" href="style.css">
 <center>
+
+
+
 <div class="container">
-<canvas id="info" class="panel"></canvas>
-<canvas id="board" class="panel"></canvas>
-<canvas id="actions" class="panel"></canvas>
+  <div class="side">
+    <canvas id="info"></canvas>
+  </div>
+  <canvas id="board"></canvas>
+  <div class="side">
+    <canvas id="actions"></canvas>
+  </div>
 </div>
+
 <script src="http.min.js"></script>
 <script src="color.js"></script>
 <script src="display.js"></script>
@@ -23,7 +31,6 @@ function resize() {
   
   var height = window.innerHeight;
   
-  var ratio = board.width/board.height;
   board.width = height;
   board.height = height;
   board.style.width = height+'px';

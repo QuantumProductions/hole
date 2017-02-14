@@ -1,28 +1,36 @@
+body {
+  background-color: #4c5959;
+  margin: 0;
+}
+*{
+  box-sizing: border-box;
+}
 .container {
   display:flex;
-  height:100%;
-  width:100%;
+  height:100vh;
+  width:100vw;
 }
 
-.panel {
-  display:flex;
+.side {
+  flex: 1 1 25%;
+  width: 25%;
+}
+.side canvas {
+  height: 100vh;
+  width: 100%;
+  float: left;
 }
 
 #board {
-  width:50%;
-  height:100%;
   background:#9b59b6;
+  width: 50vw;
+  height: 100%;
 }
 
 #info {
-  width:25%;
-  height:100%;
   background:#3498db;
 }
 
 #actions {
-  width:25%; 
-  height:100%;
   background:#1abc9c;
 }
-
