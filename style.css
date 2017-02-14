@@ -4,6 +4,10 @@
   align-items:flex-start;
 }
 
+.panel {
+  display:flex;
+}
+
 #board {
   width:100vh;
   height:100vh;

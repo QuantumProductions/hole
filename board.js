@@ -49,18 +49,17 @@ class Board extends View {
       ctt.beginPath();
       ctt.strokeStyle = Color.recent;
       if (tile.owner == 'x') {
-        ctx.moveTo(x + 1/3 * size, y + 1/3 * size);
-        ctx.lineTo(x + 2/3 * size, y + 2/3 * size);
-        ctx.moveTo(x + 2/3 * size, y + 1/3 * size);
-        ctx.lineTo(x + 1/3 * size, y + 2/3 * size);
-        ctx.stroke();
+        ctt.moveTo(x + 1/3 * size, y + 1/3 * size);
+        ctt.lineTo(x + 2/3 * size, y + 2/3 * size);
+        ctt.moveTo(x + 2/3 * size, y + 1/3 * size);
+        ctt.lineTo(x + 1/3 * size, y + 2/3 * size);
+        ctt.stroke();
       } else if (tile.owner == 'o') {
-        ctx.lineWidth = 2;
+        ctt.lineWidth = 2;
         ctt.arc(x + (0.5 * size), y + 0.5 * size, 1/4 * size, 0, 2 * Math.PI, false);
-        ctx.stroke();
-        ctx.lineWidth = 1;
+        ctt.stroke();
+        ctt.lineWidth = 1;
       }
-      // ctt.fillRect(x + 0.4 * size, y + 0.4 * size, size * 0.2, size * 0.2);
 
       ctt.fill();
     }

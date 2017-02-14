@@ -13,6 +13,8 @@ class View {
   }
 
   renderState(ctt, cnv, s) {
+    // console.log(ctt);
+    // console.log(cnv);
     const leftX = this.x * cnv.width;
     const topY = this.y * cnv.width;
     const width = this.w * cnv.width;
