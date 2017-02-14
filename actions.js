@@ -3,7 +3,8 @@
 class Actions extends View {
    draw(ctt, x, y, w, h, s) {
     ctt.font = '30pt Courier New';
-    ctt.fillStyle = Color.x;
+    ctt.fillStyle = Color.background;
+    console.log(w);
     if (s.current == 'x') {
       let xnow = this.nowmoves(s.x.now);
       ctt.fillText(xnow, (515 / 1200) * w, (80 / 1200) * h);    

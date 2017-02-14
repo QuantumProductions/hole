@@ -2,7 +2,7 @@
 <center>
 <body bgcolor="#4c5959">
 <link rel="stylesheet" href="style.css">
-<center>
+<!-- <center> -->
 
 
 
@@ -27,6 +27,7 @@
 Color.setup();
 window.display = new Display();
 let board = document.getElementById("board");
+let actions = document.getElementById("actions");
 function resize() {
   
   var height = window.innerHeight;
@@ -36,8 +37,18 @@ function resize() {
   board.style.width = height+'px';
   board.style.height = height+'px';
   
-  window.display.w = height;;
-  window.display.h = height;
+  // window.display.w = height;;
+  // window.display.h = height;
+
+  // actions.width = 0.5 * height;
+  // actions.height = height;
+  actions.x = board.width * 4;
+  actions.width = height / 2;
+  actions.height = height;
+  // let aw = actions.width;
+  // let ah = actions.height;
+  
+  // console.log(aw + "hi");
 }
 
 window.addEventListener('load', resize, false);

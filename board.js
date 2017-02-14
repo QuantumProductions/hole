@@ -8,7 +8,6 @@ class Board extends View {
   }
 
   draw(ctt, x, y, w, h, s) {
-    w = h;
     ctt.beginPath();
     ctt.fillStyle = Color.boardBg;
     ctt.fillRect(x,y,w,h);
