@@ -28,7 +28,7 @@ class Display {
   installTime() {
     this.now, this.dt, this.last = Date.now();
     this.dt = 0.00;
-    this.rate = 100;
+    this.rate = 1000;
   }
 
   installLoops() {
@@ -44,8 +44,7 @@ class Display {
       let table = this.state.tableCache[this.tableIndex];
       this.board.renderState(this.boardCtt, this.boardCnv, table.board);
       this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
-      this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);
-    
+      this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);    
     }
     
   }

@@ -2,14 +2,14 @@
 
 class Clock extends View {
    draw(ctt, x, y, w, h, s) {
-    ctt.font = '120pt Courier New';
+    ctt.font = '250pt Courier New';
     ctt.fillStyle = Color.x;
+    ctt.textAlign = 'left';
     let xtime = this.time(s.x);
-    ctt.fillText(xtime, (116 / 1200) * w, (150 / 1200) * h);  
-    ctt.font = '120pt Courier New';
+    ctt.fillText(xtime, 0.05 * w, 0.1 * h - 2, 0.5 * w);  
     ctt.fillStyle = Color.o;
     let otime = this.time(s.o);
-    ctt.fillText(otime, (796/1200) * w, (1149/1200) * h);  
+    ctt.fillText(otime, 0.05 * w, 0.6 * h, 0.5 * w);  
   }
 
   time(t) {
