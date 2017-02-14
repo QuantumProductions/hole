@@ -8,7 +8,6 @@ class Board extends View {
   }
 
   draw(ctt, x, y, w, h, s) {
-    console.log("w" + w + "h" + h);
     w = h;
     ctt.beginPath();
     ctt.fillStyle = Color.boardBg;
@@ -48,26 +47,26 @@ class Board extends View {
     }
     
     if (recent || spawn) {
+      let oldLineWidth = ctt.lineWidth;
       ctt.beginPath();
       ctt.strokeStyle = Color.recent;
+      ctt.lineWidth = 18;
       if (tile.owner == 'x') {
-        ctt.lineWidth = 4;
         ctt.moveTo(x + 1/3 * size, y + 1/3 * size);
         ctt.lineTo(x + 2/3 * size, y + 2/3 * size);
         ctt.moveTo(x + 2/3 * size, y + 1/3 * size);
         ctt.lineTo(x + 1/3 * size, y + 2/3 * size);
         ctt.stroke();
       } else if (tile.owner == 'o') {
-        ctt.lineWidth = 4;
         ctt.arc(x + (0.5 * size), y + 0.5 * size, 1/4 * size, 0, 2 * Math.PI, false);
         ctt.stroke();
-        
       }
 
-      ctt.fill();
+      // ctt.fill();
     }
 
     if (ridge) {
+      ctt.lineWidth = 18;
       ctt.beginPath();
       var centerMargin = 0.3* size;
 
@@ -92,6 +91,7 @@ class Board extends View {
   }
 
   drawWall(x, y, direction, ctt, size) {
+    ctt.lineWidth = 18;
     var wallOrigin = null;
     var wallEnd = null;
     var wallSize = 0.1 * size;
@@ -118,9 +118,7 @@ class Board extends View {
     ctt.moveTo(wallOrigin[0], wallOrigin[1]);
     ctt.lineTo(wallEnd[0], wallEnd[1]);
     ctt.strokeStyle = Color.wall;
-    ctt.lineWidth = 2;
     ctt.stroke();
     ctt.closePath();
-    ctt.lineWidth = 1;
   }
 }

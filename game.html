@@ -20,21 +20,16 @@ Color.setup();
 window.display = new Display();
 let board = document.getElementById("board");
 function resize() {
-  // Our canvas must cover full height of screen
-  // regardless of the resolution
+  
   var height = window.innerHeight;
   
-  // So we need to calculate the proper scaled width
-  // that should work well with every resolution
-  
   var ratio = board.width/board.height;
-  var width = height * ratio;
-  board.width = width;
+  board.width = height;
   board.height = height;
-  board.style.width = width+'px';
+  board.style.width = height+'px';
   board.style.height = height+'px';
   
-  window.display.w = width;
+  window.display.w = height;;
   window.display.h = height;
 }
 

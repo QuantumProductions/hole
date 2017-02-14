@@ -1,19 +1,18 @@
 .container {
   display:flex;
   height:100%;
-  align-items:flex-start;
+  width:100%;
 }
 
 .panel {
   display:flex;
 }
 
-/*#board {
-  width:100vh%;
-  height:100vh;
+#board {
+  width:50%;
+  height:100%;
   background:#9b59b6;
-  /*flex-shrink: 0*/
-/*}*/
+}
 
 #info {
   width:25%;
