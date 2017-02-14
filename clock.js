@@ -4,11 +4,9 @@ class Clock extends View {
    draw(ctt, x, y, w, h, s) {
     ctt.font = '120pt Courier New';
     ctt.fillStyle = Color.x;
-    ctt.fillStyle = 'white';
-    ctt.fillText("hello", 50, 50);
     let xtime = this.time(s.x);
     ctt.fillText(xtime, (116 / 1200) * w, (150 / 1200) * h);  
-    // ctt.font = '120pt Courier New';
+    ctt.font = '120pt Courier New';
     ctt.fillStyle = Color.o;
     let otime = this.time(s.o);
     ctt.fillText(otime, (796/1200) * w, (1149/1200) * h);  

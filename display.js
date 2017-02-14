@@ -9,7 +9,7 @@ class Display {
     this.boardCnv = document.getElementById("board");
     this.boardCtt = this.boardCnv.getContext('2d');
     this.actionsCnv = document.getElementById("actions");
-    this.actionsCtt = this.boardCnv.getContext('2d');
+    this.actionsCtt = this.actionsCnv.getContext('2d');
     this.board = new Board(0, 0, 1, 1);
     this.clock = new Clock(0,0, 1, 1);
     this.actions = new Actions(0, 0, 1, 1);
@@ -44,7 +44,7 @@ class Display {
       let table = this.state.tableCache[this.tableIndex];
       this.board.renderState(this.boardCtt, this.boardCnv, table.board);
       this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
-      // this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);
+      this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);
     
     }
     
