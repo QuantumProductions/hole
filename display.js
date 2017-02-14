@@ -6,8 +6,8 @@ class Display {
     this.installLoops();
     this.getInfo();
     this.state = {"board" : []};
-    this.cnv = document.querySelector('canvas');
-    this.ctt = this.cnv.getContext('2d');
+    this.boardCnv = document.getElementById("board");
+    this.boardCtt = this.boardCnv.getContext('2d');
     this.board = new Board(0.2, 0.2, 0.6, 0.6);
     this.clock = new Clock(0,0, 1, 1);
     this.actions = new Actions(0, 0, 1, 1);
@@ -34,9 +34,9 @@ class Display {
   }
 
   draw() {
-    this.ctt.beginPath();
-    this.ctt.fillStyle = Color.bg;
-    this.ctt.fillRect(0,0,1200,1200);
+    this.boardCtt.beginPath();
+    this.boardCtt.fillStyle = Color.bg;
+    this.boardCtt.fillRect(0,0,this.boardCnv.width, this.boardCnv.width);
 
     if (this.state.tableCache) {
       let table = this.state.tableCache[this.tableIndex];

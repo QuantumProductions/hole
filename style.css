@@ -1,0 +1,24 @@
+.container {
+  display:flex;
+  height:100vh;
+  align-items:flex-start;
+}
+
+#board {
+  width:100vh;
+  height:100vh;
+  background:#9b59b6;
+}
+
+#info {
+  width:25%;
+  height:100%;
+  background:#3498db;
+}
+
+#actions {
+  width:25%; 
+  height:100%;
+  background:#1abc9c;
+}
+

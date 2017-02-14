@@ -2,7 +2,12 @@
 <center>
 <body bgcolor="#4c5959">
 <link rel="stylesheet" href="style.css">
-<canvas width="1200" height="1200"></canvas>
+<center>
+<div class="container">
+<canvas id="info"></canvas>
+<canvas id="board"></canvas>
+<canvas id="actions"></canvas>
+</div>
 <script src="http.min.js"></script>
 <script src="color.js"></script>
 <script src="display.js"></script>
@@ -13,34 +18,4 @@
 <script>
 Color.setup();
 window.display = new Display();
-var canvas = document.querySelector('canvas');
-var ctx = canvas.getContext('2d');
-
-// ctx.fillStyle = 'green';
-// ctx.font = 'bold 40px Monospace';
-// ctx.textBaseline = 'top';
-// ctx.fillRect(0,0,150,150);
-// ctx.fillText('hello', 10, 10);
-
-function resize() {
-  // Our canvas must cover full height of screen
-  // regardless of the resolution
-  var height = window.innerHeight;
-  
-  // So we need to calculate the proper scaled width
-  // that should work well with every resolution
-  let ow = 300;
-  let oh = 300;
-  var ratio = canvas.width/canvas.height;
-  var width = height * ratio;
-  
-  canvas.style.width = width+'px';
-  canvas.style.height = height+'px';
-  
-  window.display.w = width;
-  window.display.h = height;
-}
-
-window.addEventListener('load', resize, false);
-window.addEventListener('resize', resize, false);
 </script>
