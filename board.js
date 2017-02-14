@@ -8,6 +8,8 @@ class Board extends View {
   }
 
   draw(ctt, x, y, w, h, s) {
+    console.log("w" + w + "h" + h);
+    w = h;
     ctt.beginPath();
     ctt.fillStyle = Color.boardBg;
     ctt.fillRect(x,y,w,h);
@@ -49,16 +51,17 @@ class Board extends View {
       ctt.beginPath();
       ctt.strokeStyle = Color.recent;
       if (tile.owner == 'x') {
+        ctt.lineWidth = 4;
         ctt.moveTo(x + 1/3 * size, y + 1/3 * size);
         ctt.lineTo(x + 2/3 * size, y + 2/3 * size);
         ctt.moveTo(x + 2/3 * size, y + 1/3 * size);
         ctt.lineTo(x + 1/3 * size, y + 2/3 * size);
         ctt.stroke();
       } else if (tile.owner == 'o') {
-        ctt.lineWidth = 2;
+        ctt.lineWidth = 4;
         ctt.arc(x + (0.5 * size), y + 0.5 * size, 1/4 * size, 0, 2 * Math.PI, false);
         ctt.stroke();
-        ctt.lineWidth = 1;
+        
       }
 
       ctt.fill();

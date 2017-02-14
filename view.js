@@ -13,10 +13,8 @@ class View {
   }
 
   renderState(ctt, cnv, s) {
-    // console.log(ctt);
-    // console.log(cnv);
     const leftX = this.x * cnv.width;
-    const topY = this.y * cnv.width;
+    const topY = this.y * cnv.height;
     const width = this.w * cnv.width;
     const height = this.h * cnv.height;
     this.draw(ctt, leftX, topY, width, height, s);

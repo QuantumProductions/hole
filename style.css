@@ -1,6 +1,6 @@
 .container {
   display:flex;
-  height:100vh;
+  height:100%;
   align-items:flex-start;
 }
 
@@ -8,11 +8,12 @@
   display:flex;
 }
 
-#board {
-  width:100vh;
+/*#board {
+  width:100vh%;
   height:100vh;
   background:#9b59b6;
-}
+  /*flex-shrink: 0*/
+/*}*/
 
 #info {
   width:25%;
