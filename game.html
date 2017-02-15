@@ -36,21 +36,13 @@ function resize() {
   board.height = height;
   board.style.width = height+'px';
   board.style.height = height+'px';
-  
-  // window.display.w = height;;
-  // window.display.h = height;
 
-  // actions.width = 0.5 * height;
-  // actions.height = height;
-  // actions.x = board.width * 4;
   actions.width = height / 4;
   actions.height = height;
-  // let aw = actions.width;
-  // let ah = actions.height;
-  
-  // console.log(aw + "hi");
 }
 
 window.addEventListener('load', resize, false);
 window.addEventListener('resize', resize, false);
+
+// board.addEventListener("mousemove", this.onMouseMove.bind(this), false);
 </script>

@@ -5,7 +5,6 @@ class Actions extends View {
     ctt.font = '150pt Courier New';
     ctt.fillStyle = Color.x
     ctt.textAlign = 'left';
-    console.log(w);
 
     let xal = 0.08 * w;
     let maxWidth = 0.5 * w;
@@ -19,10 +18,10 @@ class Actions extends View {
 
     ctt.fillStyle = Color.o;
 
-    // if (s.current == 'o') {
+    if (s.current == 'o') {
       let onow = this.nowmoves(s.o.now);
       ctt.fillText(onow, xal, 0.7 * h, maxWidth * 1.06);  
-    // }
+    }
     
     let onext = this.nextmoves(s.o.next);
     ctt.fillText(onext, xal, 0.9 * h, maxWidth * 1.5);  

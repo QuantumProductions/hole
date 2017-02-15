@@ -7,6 +7,7 @@ class Display {
     this.getInfo();
     this.state = {"board" : []};
     this.boardCnv = document.getElementById("board");
+    this.boardCnv.addEventListener("click", this.clicked.bind(this), false);
     this.boardCtt = this.boardCnv.getContext('2d');
     this.actionsCnv = document.getElementById("actions");
     this.actionsCtt = this.actionsCnv.getContext('2d');
@@ -14,15 +15,96 @@ class Display {
     this.clock = new Clock(0,0, 1, 1);
     this.actions = new Actions(0, 0, 1, 1);
     this.tableIndex = 0;
+    this.status = {};
+    this.name = this.makeName();
+    this.fresh = true;
   }
+
+  clicked(e) {
+     let rect = this.boardCnv.getBoundingClientRect();
+    let r  = {x: e.clientX - rect.left, y: e.clientY - rect.top};
+    console.log(r);
+    //calculate tile
+    this.makeMove(r);
+  }
+
+  makeMove(r) { 
+    let url = "play/" + this.status.tablePid + "/" + this.name + "/" + this.status.auth + "/" + this.status.team + "/" + "take/" + "2/1";
+    
+    console.log(url);
+    http.get({
+      url: "http://localhost:8080/" + url,
+      onload: function() {
+        window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
+      }
+    });
+  }
+
+
+  setupMouse() {
+    this.boardCnv.onMouseUp = function(e) {
+      console.log('hi');
+    }
+
+    console.log(this.boardCnv);
+  }
+
+  onMouseUp(e) {
+    console.log(e);
+  }
+
+  makeName(){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 15; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+      
+    return text;
+}
 
   getInfo() {
     http.get({
       url: "http://localhost:8080/info",
-      onload: function() { //extract to standard overridable callback
-        window.display.state = JSON.parse(JSON.parse(this.responseText));
+      onload: function() {
+        window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
       }
     });    
+  }
+
+  join() {
+    http.get({
+      url: "http://localhost:8080/join/" + this.name,
+      onload: function() {
+        window.display.handleJoin(JSON.parse(JSON.parse(this.responseText)));
+      }
+    })
+  }
+
+  click(e) {
+    console.log(e);
+  }
+
+  handleJoin(j) {
+    console.log("hi");
+    if (j.queueLength) {
+      //
+    } else {
+      this.status.tablePid = j.tablePid;
+      this.status.auth = j.auth;
+      this.status.team = j.team;
+      console.log("status" + JSON.stringify(this.status));
+    }
+    
+  }
+
+  assignState(s) {
+    this.state = s;
+    if (this.fresh) {
+      this.fresh = false;
+      this.join();
+    }
   }
 
   installTime() {
@@ -32,7 +114,7 @@ class Display {
   }
 
   installLoops() {
-    window.requestAnimationFrame(this.loop.bind(this));
+    setTimeout(this.loop.bind(this), 500);
   }
 
   draw() {
@@ -56,20 +138,18 @@ class Display {
 
     this.dt = this.dt + delta;
 
-    if (this.dt < this.rate) {
-      window.requestAnimationFrame(this.loop.bind(this));
-      return;
-    }
 
-    while (this.dt > this.rate) {
-      // this.game.loop(delta);  
-      this.dt -= delta;
-    }
+
+    // if (this.dt < this.rate) {
+    //   window.requestAnimationFrame(this.loop.bind(this));
+    //   return;
+    // }
+
     
     this.draw();
 
     this.getInfo();
 
-    window.requestAnimationFrame(this.loop.bind(this));
+    setTimeout(this.loop.bind(this), 500);
   }
 }
