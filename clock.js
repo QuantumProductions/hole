@@ -13,9 +13,9 @@ class Clock extends View {
   }
 
   time(t) {
-    let seconds = t / 100;
-    let min = Math.floor(seconds / 60);
-    let sec = seconds % 60;
+    let min = Math.floor(t / 6000);
+    let seconds = Math.floor(t / 100);
+    var sec = seconds % 60;
     if (sec == 0) {
       sec = "00";
     } else if (sec < 10) {
