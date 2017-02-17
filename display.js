@@ -21,21 +21,35 @@ class Display {
   }
 
   clicked(e) {
-     let rect = this.boardCnv.getBoundingClientRect();
-    let r  = {x: e.clientX - rect.left, y: e.clientY - rect.top};
-    console.log(r);
+    let rect = this.boardCnv.getBoundingClientRect();
+    let r  = {x: 1 + Math.floor((e.clientX - rect.left) / (rect.width / 5)), 
+      y: 1 + Math.floor((e.clientY - rect.top) / (rect.height / 5))};
+    console.log("R pos" + JSON.stringify(r));
     //calculate tile
     this.makeMove(r);
   }
 
   makeMove(r) { 
-    let url = "play/" + this.status.tablePid + "/" + this.name + "/" + this.status.auth + "/" + this.status.team + "/" + "take/" + "2/1";
+    if (r.x > 5) {
+      r.x = 5;
+    }
+    if (r.y > 5) {
+      r.y = 5;
+    }
+    if (r.x < 0) {
+      r.x = 0;
+    }
+    if (r.y < 0) {
+      r.y = 0;
+    }
+    let coords = "" + r.x + "/" + r.y;
+    let url = "play/" + this.status.tablePid + "/" + this.name + "/" + this.status.auth + "/" + this.status.team + "/" + "take/" + coords;
     
     console.log(url);
     http.get({
       url: "http://localhost:8080/" + url,
       onload: function() {
-        window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
+        //window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
       }
     });
   }
@@ -87,7 +101,6 @@ class Display {
   }
 
   handleJoin(j) {
-    console.log("hi");
     if (j.queueLength) {
       //
     } else {
@@ -115,41 +128,29 @@ class Display {
 
   installLoops() {
     setTimeout(this.loop.bind(this), 500);
+    setTimeout(this.draw.bind(this), 16);
   }
 
   draw() {
-    this.boardCtt.beginPath();
     this.boardCtt.fillStyle = Color.bg;
     this.boardCtt.fillRect(0,0,this.boardCnv.width, this.boardCnv.width);
+    this.actionsCtt.fillStyle = Color.actions;
+    this.actionsCtt.fillRect(0,0,this.actionsCnv.width, this.actionsCnv.height);
 
     if (this.state.tableCache) {
       let table = this.state.tableCache[this.tableIndex];
-      this.board.renderState(this.boardCtt, this.boardCnv, table.board);
-      this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
-      this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);    
+      if (table) {
+        this.board.renderState(this.boardCtt, this.boardCnv, table.board);
+        this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
+        this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);      
+      }
+      
     }
-    
+    setTimeout(this.draw.bind(this), 16); 
   }
 
   loop() {
-    this.now = Date.now();
-    var delta  = this.now - this.last;
-    this.last = this.now;
-
-    this.dt = this.dt + delta;
-
-
-
-    // if (this.dt < this.rate) {
-    //   window.requestAnimationFrame(this.loop.bind(this));
-    //   return;
-    // }
-
-    
-    this.draw();
-
     this.getInfo();
-
     setTimeout(this.loop.bind(this), 500);
   }
 }
