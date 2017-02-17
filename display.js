@@ -49,6 +49,7 @@ class Display {
     http.get({
       url: "http://localhost:8080/" + url,
       onload: function() {
+        console.log("move response" + this.responseText);
         //window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
       }
     });
