@@ -20,6 +20,7 @@ class Color {
     // Color.bg = "#2980b9";
     Color.outline = "#CCCCCC";
     Color.stroke1 = "#000000";
+    Color.actions = "#125e49";
     // '#2980b9'
   }
 }

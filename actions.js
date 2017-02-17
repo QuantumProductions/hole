@@ -33,8 +33,9 @@ class Actions extends View {
   }
 
   nextmoves(n) {
-    if (n == 0) {
-      n = 2;
+    n = n + 2;
+    if (n > 4) {
+      n = 4;
     }
     return "" + n + " moves next turn"
   }
