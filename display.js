@@ -14,7 +14,7 @@ class Display {
     this.board = new Board(0, 0, 1, 1);
     this.clock = new Clock(0,0, 1, 1);
     this.actions = new Actions(0, 0, 1, 1);
-    this.tableIndex = 0;
+    this.tableName = "";
     this.status = {};
     this.name = this.makeName();
     this.fresh = true;
@@ -102,15 +102,8 @@ class Display {
   }
 
   handleJoin(j) {
-    if (j.queueLength) {
-      //
-    } else {
-      this.status.tablePid = j.tablePid;
-      this.status.auth = j.auth;
-      this.status.team = j.team;
-      console.log("status" + JSON.stringify(this.status));
-    }
-    
+    this.status.auth = j.auth;
+    console.log("status" + JSON.stringify(this.status));
   }
 
   assignState(s) {
@@ -118,6 +111,25 @@ class Display {
     if (this.fresh) {
       this.fresh = false;
       this.join();
+    }
+    console.log(s);
+    if (!this.state.tableCache) {
+      return;
+    }
+    let tables = this.state.tableCache;
+    let tablePids = Object.keys(tables);
+    for (let pid of tablePids) {
+      let table = tables[pid];
+      let seats = table.seats;
+      if (seats.x == this.name) {
+        console.log("Seat is X" + pid);
+        this.tableName = pid;
+        return;
+      } else if (seats.o == this.name) {
+        console.log("Seat is O" + pid);
+        this.tableName = pid;
+        return;
+      }
     }
   }
 
@@ -139,7 +151,7 @@ class Display {
     this.actionsCtt.fillRect(0,0,this.actionsCnv.width, this.actionsCnv.height);
 
     if (this.state.tableCache) {
-      let table = this.state.tableCache[this.tableIndex];
+      let table = this.state.tableCache[this.tableName];
       if (table) {
         this.board.renderState(this.boardCtt, this.boardCnv, table.board);
         this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
