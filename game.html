@@ -23,11 +23,13 @@
 <script src="board.js"></script>
 <script src="clock.js"></script>
 <script src="actions.js"></script>
+<script src="info.js"></script>
 <script>
 Color.setup();
 window.display = new Display();
 let board = document.getElementById("board");
 let actions = document.getElementById("actions");
+let info = document.getElementById("info");
 function resize() {
   
   var height = window.innerHeight;
@@ -39,6 +41,9 @@ function resize() {
 
   actions.width = height / 4;
   actions.height = height;
+
+  info.width = height / 4;
+  info.height = height;
 }
 
 window.addEventListener('load', resize, false);

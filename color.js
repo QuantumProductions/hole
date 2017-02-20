@@ -21,6 +21,8 @@ class Color {
     Color.outline = "#CCCCCC";
     Color.stroke1 = "#000000";
     Color.actions = "#125e49";
+    Color.info = "#18568e";
+    Color.text = "#FFFFFF";
     // '#2980b9'
   }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 class Display {
-  constructor() {
+  constructor() { 
     this.installTime();
     this.installLoops();
     this.getInfo();
@@ -11,10 +11,13 @@ class Display {
     this.boardCtt = this.boardCnv.getContext('2d');
     this.actionsCnv = document.getElementById("actions");
     this.actionsCtt = this.actionsCnv.getContext('2d');
+    this.infoCnv = document.getElementById("info");
+    this.infoCtt = this.infoCnv.getContext('2d');
+    this.info = new Info(0, 0, 1, 1);
     this.board = new Board(0, 0, 1, 1);
     this.clock = new Clock(0,0, 1, 1);
     this.actions = new Actions(0, 0, 1, 1);
-    this.status = {tableName: ""};
+    this.status = {tableName: "", playing: 0};
     this.name = this.makeName();
     this.fresh = true;
   }
@@ -102,6 +105,7 @@ class Display {
 
   handleJoin(j) {
     this.status.auth = j.auth;
+    this.status.playing = 1;
     console.log("status" + JSON.stringify(this.status));
   }
 
@@ -126,10 +130,12 @@ class Display {
       if (seats.x == this.name) {
         this.status.tableName = pid;
         this.status.team = "x";
+        this.status.playing = 2;
         return;
       } else if (seats.o == this.name) {
         this.status.tableName = pid;
         this.status.team = "o";
+        this.status.playing = 2;
         return;
       }
     }
@@ -151,6 +157,8 @@ class Display {
     this.boardCtt.fillRect(0,0,this.boardCnv.width, this.boardCnv.width);
     this.actionsCtt.fillStyle = Color.actions;
     this.actionsCtt.fillRect(0,0,this.actionsCnv.width, this.actionsCnv.height);
+    this.infoCtt.fillStyle = Color.info;
+    this.infoCtt.fillRect(0,0,this.infoCnv.width, this.infoCnv.height);
 
     if (this.state.tableCache) {
       let table = this.state.tableCache[this.status.tableName];
@@ -158,9 +166,11 @@ class Display {
         this.board.renderState(this.boardCtt, this.boardCnv, table.board);
         this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
         this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);      
-      }
-      
+      }      
+      this.info.renderState(this.infoCtt, this.infoCnv, this.status);
     }
+
+   
     setTimeout(this.draw.bind(this), 16); 
   }
 
