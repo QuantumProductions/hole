@@ -14,13 +14,40 @@ class Display {
     this.infoCnv = document.getElementById("info");
     this.infoCtt = this.infoCnv.getContext('2d');
     this.info = new Info(0, 0, 1, 1);
+    this.infoCnv.addEventListener("click", this.infoClicked.bind(this), false);
     this.board = new Board(0, 0, 1, 1);
     this.clock = new Clock(0,0, 1, 1);
     this.actions = new Actions(0, 0, 1, 1);
-    this.status = {tableName: "", playing: 0};
+    this.resetStatus();
     this.name = this.makeName();
     this.fresh = true;
   }
+
+  resetStatus() {
+    this.status = {tableName: "", playing: 0};
+  }
+
+  infoClicked(e) {
+    let rect = this.infoCnv.getBoundingClientRect();
+    let y = (1 + Math.floor((e.clientY - rect.top) / (rect.height / 3)));
+    switch (y) {
+      case 1:
+        if (!this.isPlaying()) {
+          this.join();
+        } else if (this.status.playing == 1) {
+          this.resetStatus();
+        }
+      default:
+        return;
+    }
+  }
+
+  isPlaying() {
+    return this.status.playing == 1 || this.status.playing == 2;
+  }
+
+  // 0 not joined
+  // 1 finding, 2 playing, 3 finished
 
   clicked(e) {
     let rect = this.boardCnv.getBoundingClientRect();
@@ -79,7 +106,7 @@ class Display {
     }
       
     return text;
-}
+  }
 
   getInfo() {
     http.get({
@@ -111,10 +138,6 @@ class Display {
 
   assignState(s) {
     this.state = s;
-    if (this.fresh) {
-      this.fresh = false;
-      this.join();
-    }
 
     if (!this.state.tableCache) {
       return;
