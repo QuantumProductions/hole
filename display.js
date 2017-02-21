@@ -35,7 +35,7 @@ class Display {
         if (!this.isPlaying()) {
           this.join();
         } else if (this.status.playing == 1) {
-          this.resetStatus();
+          this.cancel();
         }
       default:
         return;
@@ -79,9 +79,20 @@ class Display {
       url: "http://localhost:8080/" + url,
       onload: function() {
         console.log("move response" + this.responseText);
-        //window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
+        window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
       }
     });
+  }
+
+  cancel() {
+    let url = "cancel_join/" + this.name +"/" + this.status.auth;
+    http.get({
+      url: "http://localhost:8080/" + url,
+      onload: function() {
+        console.log("cancel response" + this.responseText);
+        window.display.resetStatus();
+      }
+    }); 
   }
 
 
