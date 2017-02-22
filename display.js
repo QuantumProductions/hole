@@ -95,15 +95,6 @@ class Display {
     }); 
   }
 
-
-  setupMouse() {
-    this.boardCnv.onMouseUp = function(e) {
-      console.log('hi');
-    }
-
-    console.log(this.boardCnv);
-  }
-
   onMouseUp(e) {
     console.log(e);
   }
@@ -137,14 +128,10 @@ class Display {
     })
   }
 
-  click(e) {
-    console.log(e);
-  }
-
   handleJoin(j) {
     this.status.auth = j.auth;
     this.status.playing = 1;
-    console.log("status" + JSON.stringify(this.status));
+    // console.log("status" + JSON.stringify(this.status));
   }
 
   assignState(s) {
