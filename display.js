@@ -24,7 +24,7 @@ class Display {
   }
 
   resetStatus() {
-    this.status = {tableName: "", playing: 0};
+    this.status = {tableName: undefined, playing: 0};
   }
 
   infoClicked(e) {
@@ -173,9 +173,14 @@ class Display {
     setTimeout(this.draw.bind(this), 16);
   }
 
-  draw() {
+  drawBoardBackground() {
     this.boardCtt.fillStyle = Color.bg;
     this.boardCtt.fillRect(0,0,this.boardCnv.width, this.boardCnv.width);
+  }
+
+  draw() {
+    this.drawBoardBackground;
+    
     this.actionsCtt.fillStyle = Color.actions;
     this.actionsCtt.fillRect(0,0,this.actionsCnv.width, this.actionsCnv.height);
     this.infoCtt.fillStyle = Color.info;
@@ -184,15 +189,26 @@ class Display {
     if (this.state.tableCache) {
       let table = this.state.tableCache[this.status.tableName];
       if (table) {
+        this.status.table = table;
         this.board.renderState(this.boardCtt, this.boardCnv, table.board);
         this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
         this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);      
-      }      
+      } else if (this.status.table) {
+        this.board.renderState(this.boardCtt, this.boardCnv, this.status.table.board);
+        this.clock.renderState(this.actionsCtt, this.actionsCnv, this.status.table.clock);
+      }
       this.info.renderState(this.infoCtt, this.infoCnv, this.status);
+    } else {
+      console.log("empty");
+      this.showEmptyBoard();
     }
 
-   
     setTimeout(this.draw.bind(this), 16); 
+  }
+
+  showEmptyBoard() {
+    let nullRow = [null, null, null, null, null];
+    this.board.renderState(this.boardCtt, this.boardCnv, [nullRow, nullRow, nullRow, nullRow, nullRow]);
   }
 
   loop() {

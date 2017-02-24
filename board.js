@@ -26,6 +26,9 @@ class Board extends View {
   }
 
   drawTile(x, y, tile, ctt, size) {
+    if (tile == null) {
+      tile = {owner: null, status: "empty", wall: "none"};
+    }
     ctt.beginPath();
     let owner = tile.owner;
     ctt.fillStyle = Color[owner]; 
