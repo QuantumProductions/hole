@@ -4,7 +4,6 @@ class Display {
   constructor() { 
     this.installTime();
     this.installLoops();
-    this.getInfo();
     this.state = {"board" : []};
     this.boardCnv = document.getElementById("board");
     this.boardCnv.addEventListener("click", this.clicked.bind(this), false);
@@ -72,7 +71,7 @@ class Display {
       r.y = 0;
     }
     let coords = "" + r.x + "/" + r.y;
-    let url = "play/" + this.status.tableName + "/" + this.name + "/" + this.status.auth + "/" + this.status.team + "/" + "take/" + coords;
+    let url = "" + this.status.table_id + "/play/" + this.name + "/" + this.status.auth + "/" + this.status.team + "/" + "take/" + coords;
     
     console.log(url);
     http.get({
@@ -218,8 +217,21 @@ class Display {
     this.board.renderState(this.boardCtt, this.boardCnv, [nullRow, nullRow, nullRow, nullRow, nullRow]);
   }
 
+  getStatus() {
+    http.get({
+      url: "http://localhost:8080/status/" + this.name,
+      onload: function() {
+        window.display.handleStatus(JSON.parse(JSON.parse(this.responseText)));
+      }
+    })   
+  }
+
+  handleStatus(json) {
+    this.status = json;
+  }
+
   loop() {
-    this.getInfo();
+    this.getStatus();
     setTimeout(this.loop.bind(this), 500);
   }
 }
