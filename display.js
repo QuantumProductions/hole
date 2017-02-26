@@ -110,9 +110,9 @@ class Display {
     return text;
   }
 
-  getInfo() {
+  getTableInfo(tableName) {
     http.get({
-      url: "http://localhost:8080/info",
+      url: "http://localhost:8080/tables/" + tableName,
       onload: function() {
         window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
       }
@@ -128,6 +128,10 @@ class Display {
     })
   }
 
+  getInfo() {
+    this.getTableInfo(this.status.tableName);
+  }
+
   handleJoin(j) {
     this.status.auth = j.auth;
     this.status.playing = 1;
@@ -135,11 +139,14 @@ class Display {
   }
 
   assignState(s) {
+    console.log(s);
+    return;
     this.state = s;
 
-    if (!this.state.tableCache) {
-      return;
-    }
+    // if (!this.state.tableCache) {
+    //   return;
+    // }
+    // let table = this.state.tableCache
     let tables = this.state.tableCache;
     let tablePids = Object.keys(tables);
     for (let pid of tablePids) {
