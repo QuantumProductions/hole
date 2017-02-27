@@ -2,8 +2,6 @@
 
 class Display {
   constructor() { 
-    this.installTime();
-    this.installLoops();
     this.state = {"board" : []};
     this.boardCnv = document.getElementById("board");
     this.boardCnv.addEventListener("click", this.clicked.bind(this), false);
@@ -19,11 +17,14 @@ class Display {
     this.actions = new Actions(0, 0, 1, 1);
     this.resetStatus();
     this.name = this.makeName();
+    this.team = "none";
+    this.installTime();
+    this.installLoops();
     this.fresh = true;
   }
 
   resetStatus() {
-    this.status = {tableName: undefined, playing: 0};
+    this.status = {table_id: undefined, status: "newcomer"};
   }
 
   infoClicked(e) {
@@ -31,9 +32,9 @@ class Display {
     let y = (1 + Math.floor((e.clientY - rect.top) / (rect.height / 3)));
     switch (y) {
       case 1:
-        if (!this.isPlaying()) {
+        if (!this.isPlaying() && !this.isSearching()) {
           this.join();
-        } else if (this.status.playing == 1) {
+        } else if (this.isSearching()) {
           this.cancel();
         }
       default:
@@ -41,18 +42,26 @@ class Display {
     }
   }
 
+  isSearching() {
+    return this.status.status == "searching";
+  }
+
   isPlaying() {
-    return this.status.playing == 1 || this.status.playing == 2;
+    return this.status.status == "playing";
   }
 
   // 0 not joined
   // 1 finding, 2 playing, 3 finished
 
   clicked(e) {
+    console.log(this.status.table_id);
+    if (!this.status.table_id) {
+      return;
+    }
     let rect = this.boardCnv.getBoundingClientRect();
     let r  = {x: 1 + Math.floor((e.clientX - rect.left) / (rect.width / 5)), 
       y: 1 + Math.floor((e.clientY - rect.top) / (rect.height / 5))};
-    console.log("R pos" + JSON.stringify(r));
+    // console.log("R pos" + JSON.stringify(r));
     //calculate tile
     this.makeMove(r);
   }
@@ -71,9 +80,9 @@ class Display {
       r.y = 0;
     }
     let coords = "" + r.x + "/" + r.y;
-    let url = "" + this.status.table_id + "/play/" + this.name + "/" + this.status.auth + "/" + this.status.team + "/" + "take/" + coords;
+    let url = "tables/" + this.status.table_id + "/play/" + this.name + "/" + this.auth + "/" + this.team + "/" + "take/" + coords;
     
-    console.log(url);
+    // console.log(url);
     http.get({
       url: "http://localhost:8080/" + url,
       onload: function() {
@@ -84,7 +93,7 @@ class Display {
   }
 
   cancel() {
-    let url = "cancel_join/" + this.name +"/" + this.status.auth;
+    let url = "cancel_join/" + this.name +"/" + this.auth;
     http.get({
       url: "http://localhost:8080/" + url,
       onload: function() {
@@ -110,9 +119,11 @@ class Display {
   }
 
   getTableInfo(tableName) {
+    console.log(tableName);
     http.get({
       url: "http://localhost:8080/tables/" + tableName,
       onload: function() {
+        // console.log(this.responseText);
         window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
       }
     });    
@@ -133,38 +144,25 @@ class Display {
 
   handleJoin(j) {
     this.status.auth = j.auth;
-    this.status.playing = 1;
-    // console.log("status" + JSON.stringify(this.status));
+    this.auth = j.auth;
+    this.status.status = "searching";
   }
 
-  assignState(s) {
-    console.log(s);
-    return;
-    this.state = s;
-
-    // if (!this.state.tableCache) {
-    //   return;
-    // }
-    // let table = this.state.tableCache
-    let tables = this.state.tableCache;
-    let tablePids = Object.keys(tables);
-    for (let pid of tablePids) {
-      let table = tables[pid];
-      if (table.debug) {
-        return;
-      }
-      let seats = table.seats;
-      if (seats.x == this.name) {
-        this.status.tableName = pid;
-        this.status.team = "x";
-        this.status.playing = 2;
-        return;
-      } else if (seats.o == this.name) {
-        this.status.tableName = pid;
-        this.status.team = "o";
-        this.status.playing = 2;
-        return;
-      }
+  assignState(table) {
+    console.log(table);
+    
+    if (table.debug) {
+      return;
+    }
+    
+    this.tableCache = table;
+    let seats = table.seats;
+    if (seats.x == this.name) {
+      this.team = "x";
+      return;
+    } else if (seats.o == this.name) {
+      this.team = "o";
+      return;
     }
   }
 
@@ -192,8 +190,10 @@ class Display {
     this.infoCtt.fillStyle = Color.info;
     this.infoCtt.fillRect(0,0,this.infoCnv.width, this.infoCnv.height);
 
-    if (this.state.tableCache) {
-      let table = this.state.tableCache[this.status.tableName];
+    this.info.renderState(this.infoCtt, this.infoCnv, this.status);
+
+    if (this.tableCache) {
+      let table = this.tableCache;
       if (table) {
         this.status.table = table;
         this.board.renderState(this.boardCtt, this.boardCnv, table.board);
@@ -203,9 +203,9 @@ class Display {
         this.board.renderState(this.boardCtt, this.boardCnv, this.status.table.board);
         this.clock.renderState(this.actionsCtt, this.actionsCnv, this.status.table.clock);
       }
-      this.info.renderState(this.infoCtt, this.infoCnv, this.status);
+      
     } else {
-      console.log("empty");
+      // console.log("empty");
       this.showEmptyBoard();
     }
 
@@ -221,6 +221,7 @@ class Display {
     http.get({
       url: "http://localhost:8080/status/" + this.name,
       onload: function() {
+        console.log(this.responseText);
         window.display.handleStatus(JSON.parse(JSON.parse(this.responseText)));
       }
     })   
@@ -228,10 +229,26 @@ class Display {
 
   handleStatus(json) {
     this.status = json;
+
+    if (this.isPlaying()) {
+      console.log("Playing");
+    }
+  }
+
+  hasTable() {
+    return this.status.table_id;
   }
 
   loop() {
-    this.getStatus();
+    if (this.name && this.auth) {
+      this.getStatus();  
+    }
+
+    let tableId = this.hasTable();
+    if (tableId) {
+      this.getTableInfo(tableId);
+    }
+    
     setTimeout(this.loop.bind(this), 500);
   }
 }

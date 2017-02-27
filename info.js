@@ -2,12 +2,12 @@
 
 class Info extends View {
   draw(ctt, x, y, w, h, s) {
-    switch (s.playing) {
+    switch (s.status) {
       // Command pattern?
-      case 0:
+      case "newcomer":
         this.showPlaying(ctt, x, y, w, h, s);
         break;
-      case 1:
+      case "searching":
         this.showFinding(ctt, x, y, w, h, s);
         break;
       default:
