@@ -133,6 +133,8 @@ class Display {
     http.get({
       url: "http://localhost:8080/join/" + this.name,
       onload: function() {
+        console.log("Join res");
+        console.log(this.responseText);
         window.display.handleJoin(JSON.parse(JSON.parse(this.responseText)));
       }
     })
@@ -143,9 +145,30 @@ class Display {
   }
 
   handleJoin(j) {
+    console.log("join" + j);
+    console.log(j.name);
     this.status.auth = j.auth;
-    this.auth = j.auth;
+    this.status.name = j.name;
+    console.log(this.status.name);
     this.status.status = "searching";
+    this.getPlayerInfo();
+  }
+
+  getPlayerInfo() {
+    let name = this.status.name;
+    console.log("Getting player info: " + name);
+    http.get({
+      url: "http://localhost:8080/player/status/" + name,
+      onload: function() {
+        console.log(this.responseText);
+        window.display.handlePlayerInfo(JSON.parse(JSON.parse(this.responseText)));
+      }
+    })
+  }
+
+  handlePlayerInfo(j) {
+    console.log(j);
+    console.log("switch to show challenger or get table");
   }
 
   assignState(table) {
