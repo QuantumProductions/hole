@@ -121,10 +121,10 @@ class Display {
   getTableInfo(tableName) {
     console.log(tableName);
     http.get({
-      url: "http://localhost:8080/tables/" + tableName,
+      url: "http://localhost:8080/tables/status/" + tableName,
       onload: function() {
-        // console.log(this.responseText);
-        window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
+        console.log(this.responseText);
+        window.display.handleTableInfo(JSON.parse(JSON.parse(this.responseText)));
       }
     });    
   }
@@ -167,8 +167,19 @@ class Display {
   }
 
   handlePlayerInfo(j) {
+    if (j.status) {
+      if (j.status == "challenger") {
+        //
+      } //or unknown
+    } else if (j.table_id) {
+      this.getTableInfo(j.table_id);
+    }
     console.log(j);
     console.log("switch to show challenger or get table");
+  }
+
+  handleTableInfo(table) {
+    console.log("table info" + table);
   }
 
   assignState(table) {
