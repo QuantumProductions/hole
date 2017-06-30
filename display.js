@@ -180,6 +180,8 @@ class Display {
 
   handleTableInfo(table) {
     console.log("table info" + table);
+    console.log(table.board);
+    this.table = table;
   }
 
   assignState(table) {
