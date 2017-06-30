@@ -17,10 +17,20 @@ class Board extends View {
     for (var i = 0; i < s.length; i++) {
       var row = s[i];
       for (var j = 0; j < row.length; j++) {
-        let tile = row[j];
+        var tile = {};
+        var tileData = row[j];
+        if (tileData) {
+          tile.status = tileData[0];
+          tile.owner = tileData[1];
+          tile.wall = tileData[2];  
+        } else {
+          tile = {owner: null, status: "empty", wall: "none"};
+        }
+        
+
         let tileX = x + (j * 5 * m);
         let tileY = y + (i * 5 * m);
-        this.drawTile(x + (j * size), y + (i * size), s[i][j], ctt, size);
+        this.drawTile(x + (j * size), y + (i * size), tile, ctt, size);
       }
     }
   }
@@ -88,6 +98,8 @@ class Board extends View {
       ctt.stroke();
       ctt.closePath();
     } else if (tile.wall != "none") {
+      console.log("Tile wall is not none");
+      console.log(tile.wall);
       this.drawWall(x, y, tile.wall, ctt, size);
     }
   }

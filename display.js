@@ -227,24 +227,19 @@ class Display {
     this.infoCtt.fillRect(0,0,this.infoCnv.width, this.infoCnv.height);
 
     this.info.renderState(this.infoCtt, this.infoCnv, this.status);
-
-    if (this.tableCache) {
-      let table = this.tableCache;
-      if (table) {
-        this.status.table = table;
-        this.board.renderState(this.boardCtt, this.boardCnv, table.board);
-        this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
-        this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);      
-      } else if (this.status.table) {
-        this.board.renderState(this.boardCtt, this.boardCnv, this.status.table.board);
-        this.clock.renderState(this.actionsCtt, this.actionsCnv, this.status.table.clock);
+    console.log("this.table" + this.table);
+      if (this.table) {  
+        console.log(this.table.board);
+        this.board.renderState(this.boardCtt, this.boardCnv, this.table.board);
+      } else {
+        this.showEmptyBoard();
       }
-      
-    } else {
-      // console.log("empty");
-      this.showEmptyBoard();
-    }
-
+        // this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
+        // this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);      
+      // } else if (this.status.table) {
+      //   this.board.renderState(this.boardCtt, this.boardCnv, this.status.table.board);
+      //   this.clock.renderState(this.actionsCtt, this.actionsCnv, this.status.table.clock);
+      // }
     setTimeout(this.draw.bind(this), 16); 
   }
 
