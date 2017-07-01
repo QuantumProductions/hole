@@ -227,14 +227,15 @@ class Display {
     this.infoCtt.fillRect(0,0,this.infoCnv.width, this.infoCnv.height);
 
     this.info.renderState(this.infoCtt, this.infoCnv, this.status);
-    console.log("this.table" + this.table);
+    // console.log("this.table" + this.table);
       if (this.table) {  
-        console.log(this.table.board);
+        // console.log(this.table.board);
         this.board.renderState(this.boardCtt, this.boardCnv, this.table.board);
+        this.clock.renderState(this.actionsCtt, this.actionsCnv, this.table.actions);
       } else {
         this.showEmptyBoard();
       }
-        // this.clock.renderState(this.actionsCtt, this.actionsCnv, table.clock);
+
         // this.actions.renderState(this.actionsCtt, this.actionsCnv, table.actions);      
       // } else if (this.status.table) {
       //   this.board.renderState(this.boardCtt, this.boardCnv, this.status.table.board);
