@@ -9,21 +9,21 @@ class Actions extends View {
     let xal = 0.08 * w;
     let maxWidth = 0.5 * w;
     if (s.current == 'x') {
-      let xnow = this.nowmoves(s.x.now);
+      let xnow = this.nowmoves(s.x.points.now);
       ctt.fillText(xnow, xal, 0.2 * h, maxWidth * 1.06);    
     }
     
-    let xnext = this.nextmoves(s.x.next);
+    let xnext = this.nextmoves(s.x.points.next);
     ctt.fillText(xnext, xal, 0.4 * h, maxWidth * 1.5);  
 
     ctt.fillStyle = Color.o;
 
     if (s.current == 'o') {
-      let onow = this.nowmoves(s.o.now);
+      let onow = this.nowmoves(s.o.points.now);
       ctt.fillText(onow, xal, 0.7 * h, maxWidth * 1.06);  
     }
     
-    let onext = this.nextmoves(s.o.next);
+    let onext = this.nextmoves(s.o.points.next);
     ctt.fillText(onext, xal, 0.9 * h, maxWidth * 1.5);  
   }
 

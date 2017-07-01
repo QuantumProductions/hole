@@ -232,6 +232,7 @@ class Display {
         // console.log(this.table.board);
         this.board.renderState(this.boardCtt, this.boardCnv, this.table.board);
         this.clock.renderState(this.actionsCtt, this.actionsCnv, this.table.actions);
+        this.actions.renderState(this.actionsCtt, this.actionsCnv, this.table.actions);      
       } else {
         this.showEmptyBoard();
       }
