@@ -22,40 +22,10 @@ class PlayerPanel extends Component {
   }
 }
 
-//View?
-class PlayerPanelView extends Component {
-  init(o) {
-    this.install(new PlayerPanel(o));
-  }
-
-// after initializing should add its children to interested topics
-// and save to an array, iterating through and processing itself +
-// each child component
-  defaultTopics() {
-    return ['draw'];
-  }
-
-//old handle message will be replaced with 'process(t, b)'
-//handleMessage will only be called by the component handling.
-//with other messages passed to its child nodes to handleMessage
-  process(t, b) {
-    //anonymous function fn calling canvas helper from b with t
-    //replaces context = b['context'];
-    var clock = this.grab('clock');
-    //grab will run recursively, if not found as a key here will
-    //check child components
-    var time = clock.getDisplayText();
-    //render text
-    var actions = this.grab('actions');
-    var amount = actions.points;
-    //render points as boxes
-  }
-
 class Dashboard extends Thing {
-  init(o) {
-    var xPanel = new PlayerPanelView({'team' : "x"};
-    this.install('ppv', xPanel);
-    var oPanel = new PlayerPanelView({'team' : "o"};
-    this.install('ppv', oPanel);
+  defaultInstalls() {
+    return 
+      [[PlayerPanel, {team: "x"}],
+       [PlayerPanel, {team: "o"}]];
   }
 }
