@@ -6,7 +6,7 @@ class Board extends Component {
   }
 
   defaultTopics() {
-    return ['click', 'table_update'];
+    return ['click', 'board-update'];
   }
 
   receive(t, b) {

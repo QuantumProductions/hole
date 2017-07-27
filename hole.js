@@ -6,5 +6,11 @@ class Hole extends Component {
             Player, DisplayStatus];
   }
 
+  receive(t, b) {
+    if (t == 'joined') {
+      // player..
+      TableMaster.getPlayerStatus(b.player);
+    }
+  }
 
 }
