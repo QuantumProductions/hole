@@ -24,9 +24,10 @@ class Player {
   join() {
     Player.name = Player.makeName();
     this.status = {};
+    Callback.hell = this;
     http.get({
       url: "http://localhost:8080/join/" + Player.name,
-      onload: this.handleJoin.bind(this)
+      onload: this.handleJoin;
     });
   }
 
@@ -34,10 +35,10 @@ class Player {
     var json = JSON.parse(JSON.parse(this.responseText));
     console.log("join" + j);
     console.log(j.name);
-    this.status.auth = j.auth;
-    this.status.name = j.name;
+    Callback.hell.status.auth = j.auth;
+    Callback.hell.status.name = j.name;
     // this.status.status = "searching";
-    this.getPlayerInfo();
+    Callback.hell.getPlayerInfo();
   }
 
   getPlayerInfo() {
