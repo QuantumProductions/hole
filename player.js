@@ -26,14 +26,15 @@ class Player {
     this.status = {};
     Callback.hell = this;
     http.get({
-      url: "http://localhost:8080/join/" + Player.name,
+      url: "http://localhost:8080/join/" + this.name,
       onload: this.handleJoin
     });
   }
 
   handleJoin(res) {
     var j = JSON.parse(JSON.parse(this.responseText));
-    console.log("join" + j);
+    // console.log("join" + j);
+    // console.log(this.responseText);
     console.log(j.name);
     Callback.hell.status.auth = j.auth;
     Callback.hell.status.name = j.name;
@@ -53,7 +54,8 @@ class Player {
     console.log("player info" + this.responseText);
     console.log(res);
     var json = JSON.parse(JSON.parse(this.responseText));
-    console.log(json.table_id);    
+    console.log(Player.main().status);
+
   }
 
 }
