@@ -240,7 +240,7 @@ class Display {
 
   showEmptyBoard() {
     let nullRow = [null, null, null, null, null];
-    this.board.renderState(this.boardCtt, this.boardCnv, [nullRow, nullRow, nullRow, nullRow, nullRow]);
+    // this.board.renderState(this.boardCtt, this.boardCnv, [nullRow, nullRow, nullRow, nullRow, nullRow]);
   }
 
   getStatus() {
