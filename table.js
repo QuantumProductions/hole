@@ -7,7 +7,7 @@ class Table extends Component {
 
   init(o) {
     //create timer
-    //on timer, getTableInfo from source.
+    //on timer, when table_id exists: getTableInfo from source.
     //This will be TableMaster, which will callback with table-update
     //when its TableProxy completes
   }
@@ -17,11 +17,16 @@ class Table extends Component {
   }
 
   defaultTopics() {
-    return ["table-update"];
+    return ["table-update", "got-table-id"];
   }
 
   receive(t, b) {
-    if (b.table_id == this.tableId) {
+    if (t == 'got-table-id') {
+      this.tableId = b;
+      return;
+    }
+
+    if (b.tableId == this.tableId) {
       this.tableInfo = b;
       this.m('board-update', b.board);
       var status = b.status;

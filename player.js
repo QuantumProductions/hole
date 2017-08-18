@@ -55,9 +55,12 @@ class Player {
     console.log(res);
     var json = JSON.parse(JSON.parse(this.responseText));
     if (json.table_id) {
-      console.log("Table_id" + json.table_id)
+      console.log("Table_id" + json.table_id);
+      this.tableId = json.table_id;
+      this.t.m('got-table-id', this);
     } else if (json.status) {
       console.log("Joined Player Status" + json.status);
+      //loop until challenge is met
     }
     console.log(Player.main().status);
 
