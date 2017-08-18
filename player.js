@@ -54,6 +54,11 @@ class Player {
     console.log("player info" + this.responseText);
     console.log(res);
     var json = JSON.parse(JSON.parse(this.responseText));
+    if (json.table_id) {
+      console.log("Table_id" + json.table_id)
+    } else if (json.status) {
+      console.log("Joined Player Status" + json.status);
+    }
     console.log(Player.main().status);
 
   }
