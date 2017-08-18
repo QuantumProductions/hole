@@ -1,7 +1,10 @@
 'use strict';
 
 class Display {
-  constructor() { 
+  constructor() {
+    this.player = Player.main();
+    this.player.join();
+
     this.state = {"board" : []};
     this.boardCnv = document.getElementById("board");
     this.boardCnv.addEventListener("click", this.clicked.bind(this), false);
