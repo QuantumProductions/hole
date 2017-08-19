@@ -1,30 +1,38 @@
 'use strict';
 
-class Display {
-  constructor() {
-    this.player = Player.main();
-    this.player.join();
-
-    this.state = {"board" : []};
-    this.boardCnv = document.getElementById("board");
-    this.boardCnv.addEventListener("click", this.clicked.bind(this), false);
-    this.boardCtt = this.boardCnv.getContext('2d');
-    this.actionsCnv = document.getElementById("actions");
-    this.actionsCtt = this.actionsCnv.getContext('2d');
-    this.infoCnv = document.getElementById("info");
-    this.infoCtt = this.infoCnv.getContext('2d');
-    this.info = new Info(0, 0, 1, 1);
-    this.infoCnv.addEventListener("click", this.infoClicked.bind(this), false);
-    this.board = new Board(0, 0, 1, 1);
-    this.clock = new Clock(0,0, 1, 1);
-    this.actions = new Actions(0, 0, 1, 1);
-    this.resetStatus();
-    this.name = this.makeName();
-    this.team = "none";
-    this.installTime();
-    this.installLoops();
-    this.fresh = true;
+class Display extends Component {
+  defaultInstalls() {
+    return [Player];
   }
+
+  init(o) {
+    console.log(this.components);
+  }
+
+  // constructor() {
+  //   super();
+
+  //   return;
+  //   this.state = {"board" : []};
+  //   this.boardCnv = document.getElementById("board");
+  //   this.boardCnv.addEventListener("click", this.clicked.bind(this), false);
+  //   this.boardCtt = this.boardCnv.getContext('2d');
+  //   this.actionsCnv = document.getElementById("actions");
+  //   this.actionsCtt = this.actionsCnv.getContext('2d');
+  //   this.infoCnv = document.getElementById("info");
+  //   this.infoCtt = this.infoCnv.getContext('2d');
+  //   this.info = new Info(0, 0, 1, 1);
+  //   this.infoCnv.addEventListener("click", this.infoClicked.bind(this), false);
+  //   this.board = new Board(0, 0, 1, 1);
+  //   this.clock = new Clock(0,0, 1, 1);
+  //   this.actions = new Actions(0, 0, 1, 1);
+  //   this.resetStatus();
+  //   this.name = this.makeName();
+  //   this.team = "none";
+  //   this.installTime();
+  //   this.installLoops();
+  //   this.fresh = true;
+  // }
 
   resetStatus() {
     this.status = {table_id: undefined, status: "newcomer"};

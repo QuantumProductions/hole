@@ -1,6 +1,6 @@
 "use strict";
 
-class Player {
+class Player extends Component {
   static makeName(){
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -11,6 +11,12 @@ class Player {
       
     return text;
   }
+
+  interestedTopics() {
+    return [];
+  }
+
+  
 
   static main() {
     if (Player.p1) {
@@ -29,6 +35,12 @@ class Player {
       url: "http://localhost:8080/join/" + this.name,
       onload: this.handleJoin
     });
+  }
+
+  init() {
+    this.name = null;
+    this.status = {};
+    Player.main = this;
   }
 
   handleJoin(res) {

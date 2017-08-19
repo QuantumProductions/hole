@@ -4,10 +4,21 @@ class Component {
   constructor(o) {
     this.components = {};
     this.listeners = {};
+    this.installDefaults();
+    this.init(o);
   }
+  
+  init(o) {}
+  interestedTopics() {return [];}
+  defaultInstalls() {return []; }
 
-  init(o) {
-
+  installDefaults() {
+    var defaultClasses = this.defaultInstalls();
+    for (var i = 0; i < defaultClasses.length; i++) {
+      var klass = defaultClasses[i];
+      var comp = new klass();
+      this.install(comp.constructor.name, comp);
+    }
   }
 
   install(name, c) {
