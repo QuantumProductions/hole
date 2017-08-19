@@ -7,6 +7,9 @@ class Display extends Component {
 
   init(o) {
     console.log(this.components);
+    this.player = this.grab('Player');
+    this.player.join();
+    console.log(this.player);
   }
 
   // constructor() {

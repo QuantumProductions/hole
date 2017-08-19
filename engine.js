@@ -7,6 +7,10 @@ class Component {
     this.installDefaults();
     this.init(o);
   }
+
+  grab(name) {
+    return this.components[name];
+  }
   
   init(o) {}
   interestedTopics() {return [];}
