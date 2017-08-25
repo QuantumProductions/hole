@@ -12,6 +12,7 @@ class Display extends Component {
   handleMessage(title, body) {
     if (title == 'got-table-id') {
       console.log("Received table-id" + body.tableId);
+      //begin getting table info on loop
     }
   }
 
