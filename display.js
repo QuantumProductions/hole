@@ -5,6 +5,16 @@ class Display extends Component {
     return [Player];
   }
 
+  interestedTopics() {
+    return ['got-table-id'];
+  }
+
+  handleMessage(title, body) {
+    if (title == 'got-table-id') {
+      console.log("Received table-id" + body.tableId);
+    }
+  }
+
   init(o) {
     console.log(this.components);
     this.player = this.grab('Player');

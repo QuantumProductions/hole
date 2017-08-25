@@ -23,23 +23,28 @@ class Component {
       var comp = new klass();
       this.install(comp.constructor.name, comp);
     }
+
+    for (let topic of this.interestedTopics()) {
+      this.addListener(this, topic);
+    }
   }
 
   install(name, c) {
     c.t = this;
+    console.log("Installing" + name);
     this.components[name] = c;
-    let topics = c.interestedTopics();
-    for (let t of topics) {
-      this.addListener(c, t);
+    for (let topic of c.interestedTopics()) {
+      console.log("Adding listener to component" + c.t);
+      this.addListener(c, topic);
     }
   }
 
-  addListener(c, t) {
-    if (!this.listeners[t]) {
-      this.listeners[t] = [];
+  addListener(c, topic) {
+    if (!this.listeners[topic]) {
+      this.listeners[topic] = [];
     }
 
-    this.listeners[t].push(c);
+    this.listeners[topic].push(c);
   }
 
   grab(name) {
@@ -60,11 +65,14 @@ class Component {
 
   msg(title, body) {
       let listenerGroup = this.listeners[title];
+      console.log("LSTNRS" + this.listeners[title]);
       if (listenerGroup) {
         for (let listener of listenerGroup) {
           listener.handleMessage(title, body);
         } 
       }
+
+
       
     let componentKeys = Object.keys(this.components);
     for (let key of componentKeys) {

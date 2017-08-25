@@ -16,8 +16,6 @@ class Player extends Component {
     return [];
   }
 
-  
-
   static main() {
     if (Player.p1) {
       return Player.p1;
@@ -40,7 +38,7 @@ class Player extends Component {
   init() {
     this.name = null;
     this.status = {};
-    Player.main = this;
+    Player.p1 = this;
   }
 
   handleJoin(res) {
@@ -65,11 +63,12 @@ class Player extends Component {
   handlePlayerInfo(res) {
     console.log("player info" + this.responseText);
     console.log(res);
+    console.log("The main player" + Player.p1.t);
     var json = JSON.parse(JSON.parse(this.responseText));
     if (json.table_id) {
       console.log("Table_id" + json.table_id);
-      this.tableId = json.table_id;
-      this.t.m('got-table-id', this);
+      Player.p1.tableId = json.table_id;
+      Player.p1.t.msg('got-table-id', Player.p1);
     } else if (json.status) {
       console.log("Joined Player Status" + json.status);
       //loop until challenge is met
