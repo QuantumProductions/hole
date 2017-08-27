@@ -87,16 +87,33 @@ class Player extends Component {
     this.ticks++;
 
     if (!this.tableId && this.ticks > 8) {
-      console.log("Checking for game");
+      console.log("Checking for game"); 
       this.ticks = 0;
     } else if (this.tableId && this.ticks > 2) {
-      console.log("get table info");
+      this.getTableInfo();
       this.ticks = 0;
     }
   }
 
   static tickrate() {
     return 250;
+  }
+
+  getTableInfo() {
+    if (!this.tableId) {
+      console.log("No Table Id!! + ERROR");
+      return;
+    }
+    console.log("Getting table info: " + this.tableId);
+    http.get({
+      url: "http://localhost:8080/tables/status/" + this.tableId,
+      onload: this.handleTableInfo
+    })
+  }
+
+  handleTableInfo(res) {
+    console.log("" + this.tableId + "Table info" + this.responseText);
+    console.log(res);
   }
 
 }
