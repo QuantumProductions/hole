@@ -38,6 +38,7 @@ class Player extends Component {
   init() {
     this.name = null;
     this.status = {};
+    this.ticks = 0;
     Player.p1 = this;
   }
 
@@ -79,11 +80,23 @@ class Player extends Component {
     console.log("initializing looping");
     console.log("Table id is" + this.tableId);   
 
-    setInterval(this.loop.bind(this), 250);
+    setInterval(this.loop.bind(this), Player.tickrate());
   }
 
   loop() {
-    
+    this.ticks++;
+
+    if (!this.tableId && this.ticks > 8) {
+      console.log("Checking for game");
+      this.ticks = 0;
+    } else if (this.tableId && this.ticks > 2) {
+      console.log("get table info");
+      this.ticks = 0;
+    }
+  }
+
+  static tickrate() {
+    return 250;
   }
 
 }
