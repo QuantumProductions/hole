@@ -77,8 +77,13 @@ class Player extends Component {
 
   startLooping() {
     console.log("initializing looping");
-    console.log("Table id is" + this.tableId);    
+    console.log("Table id is" + this.tableId);   
+
+    setInterval(this.loop.bind(this), 250);
   }
 
+  loop() {
+    
+  }
 
 }
