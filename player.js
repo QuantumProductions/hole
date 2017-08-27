@@ -112,7 +112,7 @@ class Player extends Component {
   }
 
   handleTableInfo(res) {
-    console.log("" + this.tableId + "Table info" + this.responseText);
+    console.log("" + Player.p1.tableId + "Table info" + this.responseText);
     console.log(res);
   }
 
