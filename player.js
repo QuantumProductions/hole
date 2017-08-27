@@ -106,14 +106,15 @@ class Player extends Component {
     }
     console.log("Getting table info: " + this.tableId);
     http.get({
-      url: "http://localhost:8080/tables/status/" + this.tableId,
+      url: "http://localhost:8080/tables/info/" + this.tableId,
       onload: this.handleTableInfo
     })
   }
 
   handleTableInfo(res) {
-    console.log("" + Player.p1.tableId + "Table info" + this.responseText);
-    console.log(res);
+    //todo error handle
+    var info = JSON.parse(JSON.parse(this.responseText));
+    Player.p1.t.msg('got-table-info', info);
   }
 
 }

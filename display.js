@@ -6,13 +6,20 @@ class Display extends Component {
   }
 
   interestedTopics() {
-    return ['got-table-id'];
+    return ['got-table-id', 'got-table-info'];
   }
 
   handleMessage(title, body) {
     if (title == 'got-table-id') {
       console.log("Received table-id" + body.tableId);
       //begin getting table info on loop
+    } else if (title == 'got-table-info') {
+      var board = body.board;
+      var status = body.status;
+      var players = body.players;
+      //send board
+      //send status
+      //send players
     }
   }
 

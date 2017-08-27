@@ -65,7 +65,6 @@ class Component {
 
   msg(title, body) {
       let listenerGroup = this.listeners[title];
-      console.log("LSTNRS" + this.listeners[title]);
       if (listenerGroup) {
         for (let listener of listenerGroup) {
           listener.handleMessage(title, body);
