@@ -13,7 +13,7 @@ class Player extends Component {
   }
 
   interestedTopics() {
-    return [];
+    return ['start'];
   }
 
   static main() {
@@ -63,7 +63,6 @@ class Player extends Component {
   handlePlayerInfo(res) {
     console.log("player info" + this.responseText);
     console.log(res);
-    console.log("The main player" + Player.p1.t);
     var json = JSON.parse(JSON.parse(this.responseText));
     if (json.table_id) {
       console.log("Table_id" + json.table_id);
@@ -71,10 +70,15 @@ class Player extends Component {
       Player.p1.t.msg('got-table-id', Player.p1);
     } else if (json.status) {
       console.log("Joined Player Status" + json.status);
-      //loop until challenge is met
     }
+    Player.p1.startLooping();
     console.log(Player.main().status);
-
   }
+
+  startLooping() {
+    console.log("initializing looping");
+    console.log("Table id is" + this.tableId);    
+  }
+
 
 }
