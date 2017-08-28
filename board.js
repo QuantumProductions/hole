@@ -3,10 +3,15 @@
 class Board extends Component {
   init(o) {
     this.rows = Board.defaultRows();
+    this.canvasId = 'board';
   }
 
   interestedTopics() {
     return ['click', 'board-update'];
+  }
+
+  paint(client, canvas) {
+    console.log("Painting in board");
   }
 
   assignRows(json) {
@@ -18,8 +23,6 @@ class Board extends Component {
       }
       this.rows.push(row);
     }
-    // console.log("Final rows");
-    // console.log(this.rows);
   }
 
   handleMessage(t, b) {

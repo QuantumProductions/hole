@@ -9,28 +9,26 @@ class Client {
   }
 
   installRendering() {
-    this.installCanvas();
-    this.installBuffer();
-  }
-
-  installCanvas() {
-    this.canvas = this.generateCanvas();
-    document.getElementById("game_container").appendChild(this.canvas); 
+    this.installDisplay();
     Color.setup();
   }
 
-  installBuffer() {
-//    this.buffer = this.generateCanvas();
+  installDisplay() {
+    this.canvases = [];
+    this.canvases.push(document.getElementById("board"));
+    this.canvases.push(document.getElementById("actions"));
+    this.canvases.push(document.getElementById("info"));
+
+    this.display = new Display();
   }
 
   installInput() {
     this.installMouseInput();
     this.installKeyboardInput();
-
   }
 
   installMouseInput() {
-    this.canvas.addEventListener("click", this.onMouseDown.bind(this), false);
+    this.canvases[0].addEventListener("click", this.onMouseDown.bind(this), false);
   }
 
   installKeyboardInput() {
@@ -60,8 +58,6 @@ class Client {
       50: 'DEBUG2',
       51: 'DEBUG3',
       52: 'DEBUG4'
-      
-
     }
   }
 
@@ -74,6 +70,7 @@ class Client {
 
 
   installLoops() {
+    console.log("IL");
     window.requestAnimationFrame(this.loop.bind(this));
   }
 
@@ -84,25 +81,11 @@ class Client {
   constructor(options) {
     this.installRendering();
     this.installInput();
-    this.installMusician();
-      soundManager.setup({
-       url: '/',
-
-      onready: function() {
-        // SM2 has loaded, API ready to use e.g., createSound() etc.
-        window.client.completeGameInstall();
-      },
-
-      ontimeout: function() {
-        // Uh-oh. No HTML5 support, SWF missing, Flash blocked or other issue
-      }
-
-    });
+    this.completeGameInstall();
   }
 
   completeGameInstall() {
-    this.installGame()
-    this.game.gamepadCount = 0;
+    this.installGame();
     this.installTime();
     this.installLoops();
   }
@@ -120,7 +103,7 @@ class Client {
     }
 
     while (this.dt > this.rate) {
-      this.game.loop(delta);  
+      this.display.loop(delta);  
       this.dt -= delta;
     }
     
@@ -131,95 +114,25 @@ class Client {
     window.requestAnimationFrame(this.loop.bind(this));
   }
 
-  loopGamepadInput() {
-    var pads = navigator.getGamepads();
-
-    if (pads) {
-      for (var i = 0; i < pads.length; i++) {
-        var gp = pads[i]; 
-        if (!gp) {
-          break;
-        }
-        var x = gp.axes[0];
-        var y = gp.axes[1];
-        var threshhold = 0.3;
-        
-        var m = getm(x, y);
-        if (m < threshhold) {
-          var x2 = gp.axes[2];
-          var y2 = gp.axes[3];
-          m = getm(x2, y2);
-          x = x2;
-          y = y2;
-        }
-
-        var length = Math.abs(x) + Math.abs(y);
-        if (length > 0) {
-          x = x/length;
-          y = y/length; 
-        }
-        
-        var threshhold = 0.3;
-        var r = 0;
-        if (m < threshhold) {
-          x = 0;
-          y = 0;
-          m = 0;
-        } else {
-          m = (m - threshhold) / (1 - threshhold);
-          r = getr(x, y); 
-          if (r < 0) {
-            r += 360;
-          }
-        }
-        
-        var input = {'r' : r, 'm': m, 'buttons' : gp.buttons};
-        
-        this.game.gamepadCount = i;
-        this.game.parseGamepadInput(i, input);    
-      }
-    }
-      
-  }
-
   loopInput() {
-    this.game.loopKeyboardInput(this.key_down_map, this.key_up_map, this.key_pressing_map, this.key_depressing_map);
-    this.loopGamepadInput();
+    this.display.loopKeyboardInput(this.key_down_map, this.key_up_map, this.key_pressing_map, this.key_depressing_map);
   }
 
   draw() {
-    this.setBackground();
-
-    var group_names = this.game.groupNames();
-
-    for (var group_index = 0; group_index < group_names.length; group_index++) {
-      var group = this.game.things[group_names[group_index]];
-
-      for (var i = 0; i < group.length; i++) {
-        var thing = group[i];
-        if (thing.active) {
-          thing.draw(this, this.context());
-        }
-      }
-
+    for (var canvas of this.canvases) {
+      this.setBackground(canvas);
     }
 
-    
+    for (var canvas of this.canvases) {
+      this.display.draw(canvas, canvas.getContext('2d'));
+    }  
   }
 
-  context() {
-    return this.canvas.getContext('2d');
-  }
-
-  drawRect(x,y,w,h, colour) {
-    this.context().fillStyle = colour;
-    this.context().fillRect(x,y,w,h);
-  }
-
-  setBackground() {
-    this.context().clearRect(0, 0, this.canvas.width, this.canvas.height); //500
-    this.context().fillStyle = Color.bg;
-    this.context().fillRect(0,0, this.canvas.width, this.canvas.height);
+  setBackground(canvas) {
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height); //500
+    context.fillStyle = canvas.bg;
+    context.fillRect(0,0, canvas.width, canvas.height);
   }
 
 
