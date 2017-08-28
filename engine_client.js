@@ -71,12 +71,11 @@ class Client {
     this.now, this.dt, this.last = Date.now();
     this.dt = 0.00;
 
-    this.rate = 10;
+    this.rate = 250;
   }
 
 
   installLoops() {
-    console.log("IL");
     window.requestAnimationFrame(this.loop.bind(this));
   }
 
@@ -109,8 +108,8 @@ class Client {
     }
 
     while (this.dt > this.rate) {
-      this.display.loop(delta);  
-      this.dt -= delta;
+      this.display.loop(delta);
+      this.dt = 0;
     }
     
     this.draw();

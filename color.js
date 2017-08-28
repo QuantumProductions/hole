@@ -3,7 +3,7 @@
 class Color {
   static setup() {
     // Color.x = "#d35400";
-    // Color.x = "#e74c3c";
+    // Color.x = "#e74c3c"
     Color.x = "#51d8c8";
     // Color.o = "#16a085"
     Color.o = "#a5d266";
