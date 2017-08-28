@@ -104,7 +104,7 @@ class Player extends Component {
       console.log("No Table Id!! + ERROR");
       return;
     }
-    console.log("Getting table info: " + this.tableId);
+    // console.log("Getting table info: " + this.tableId);
     http.get({
       url: "http://localhost:8080/tables/info/" + this.tableId,
       onload: this.handleTableInfo

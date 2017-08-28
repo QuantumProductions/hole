@@ -2,7 +2,7 @@
 
 class Display extends Component {
   defaultInstalls() {
-    return [Player];
+    return [Player, Board];
   }
 
   interestedTopics() {
@@ -14,9 +14,10 @@ class Display extends Component {
       console.log("Received table-id" + body.tableId);
       //begin getting table info on loop
     } else if (title == 'got-table-info') {
-      var board = body.board;
+      // console.log("got table");
       var status = body.status;
       var players = body.players;
+      this.msg('board-update', body.board);
       //send board
       //send status
       //send players

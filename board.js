@@ -1,15 +1,32 @@
 "use strict";
 
 class Board extends Component {
-  setup(o) {
+  init(o) {
     this.rows = Board.defaultRows();
   }
 
-  defaultTopics() {
+  interestedTopics() {
     return ['click', 'board-update'];
   }
 
-  receive(t, b) {
+  assignRows(json) {
+    this.rows = [];
+    for (var jrow of json) {
+      var row = [];
+      for (var jtile of jrow) {
+        row.push(new Tile(jtile));
+      }
+      this.rows.push(row);
+    }
+    // console.log("Final rows");
+    // console.log(this.rows);
+  }
+
+  handleMessage(t, b) {
+    if (t == 'board-update') {
+      this.assignRows(b);
+    }
+    return;
     if (t == 'click') {
       console.log("clicked x/y", b.x + "/" + b.y);
       //handle walling state here too
