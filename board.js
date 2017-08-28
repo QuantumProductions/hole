@@ -11,10 +11,13 @@ class Board extends Component {
   }
 
   paint(canvas, context) {
+    // if (!this.rows) {
+    //   return;
+    // }
     var w = canvas.width;
     var squaresize = w / 5;
-    var tilesize = squaresize * 0.9;
-    var sepsize = squaresize * 0.1;
+    var tilesize = squaresize * 0.96;
+    var sepsize = squaresize * 0.04;
     var halfsep = sepsize * 0.5;
     var size = this.rows.length;
     var x = 0;
@@ -41,6 +44,39 @@ class Board extends Component {
       context.fill();
       x += squaresize;
     }
+
+    for (var i = 0; i < size; i++) {
+      var row = this.rows[i];
+      if (!row) { return;}
+      for (var j = 0; j < row.length; j++) {
+        var tileData = row[j];
+        this.drawTile(tileData, j, i, context, canvas);
+      }
+    }
+  }
+
+  drawTile(tileData, x, y, context, canvas) {
+    var w = canvas.width;
+    var squaresize = w / 5;
+    var tilesize = squaresize * 0.96;
+    var sepsize = squaresize * 0.04;
+    var halfsep = sepsize * 0.5;
+
+    context.beginPath();
+    context.fillStyle = tileData.bgColor();
+
+    var UL = [(x * squaresize) + halfsep, y * squaresize + halfsep];
+    var UR = [((x + 1) * squaresize) - halfsep, (y * squaresize) + halfsep];
+    var BR = [((x + 1) * squaresize) - halfsep, ((y + 1) * squaresize) - halfsep];
+    var BL = [((x * squaresize) + halfsep), ((y + 1) * squaresize) - halfsep];
+
+    context.moveTo(UL[0], UL[1]);
+    context.lineTo(UR[0], UR[1]);
+    context.lineTo(UR[0], UR[1]);
+    context.lineTo(BR[0], BR[1]);
+    context.lineTo(BL[0], BL[1]);
+    context.lineTo(UL[0], UL[1]);
+    context.fill();
   }
 
   assignRows(json) {
