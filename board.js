@@ -7,11 +7,11 @@ class Board extends Component {
   }
 
   interestedTopics() {
-    return ['click', 'board-update'];
+    return ['click', 'board-update', 'draw'];
   }
 
   paint(client, canvas) {
-    console.log("Painting in board");
+    // console.log("Painting in board");
   }
 
   assignRows(json) {
@@ -26,7 +26,9 @@ class Board extends Component {
   }
 
   handleMessage(t, b) {
-    if (t == 'board-update') {
+    if (t == 'draw') {
+      this.paint(b.canvas, b.context);
+    } else if (t == 'board-update') {
       this.assignRows(b);
     }
     return;
