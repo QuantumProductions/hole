@@ -10,8 +10,9 @@ class Board extends Component {
     return ['click', 'board-update', 'draw'];
   }
 
-  paint(client, canvas) {
-    // console.log("Painting in board");
+  paint(canvas, context) {
+    var w = canvas.width;
+    // console.log(w);
   }
 
   assignRows(json) {

@@ -31,7 +31,6 @@
 <script src="client.js"></script>
 <script>
 
-window.client = new GameClient();
 let board = document.getElementById("board");
 let actions = document.getElementById("actions");
 let info = document.getElementById("info");
@@ -50,7 +49,12 @@ function resize() {
   info.height = height;
 }
 
-window.addEventListener('load', resize, false);
+window.addEventListener('load', start, false);
+
+function start() {
+  resize();
+  window.client = new GameClient();
+}
 window.addEventListener('resize', resize, false);
 
 </script>
