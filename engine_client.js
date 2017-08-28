@@ -9,17 +9,23 @@ class Client {
   }
 
   installRendering() {
-    this.installDisplay();
     Color.setup();
+    this.display = new Display();
+    this.installCanvases();
   }
 
-  installDisplay() {
-    this.canvases = [];
-    this.canvases.push(document.getElementById("board"));
-    this.canvases.push(document.getElementById("actions"));
-    this.canvases.push(document.getElementById("info"));
+  existingCanvases() {
+    return [["canvas", "black"]];
+  }
 
-    this.display = new Display();
+  installCanvases() {
+    this.canvases = [];
+    var cvs = this.existingCanvases();
+    for (var d of cvs) {
+      var canvas = document.getElementById(d[0]);
+      canvas.bg = d[1];
+      this.canvases.push(canvas);
+    }
   }
 
   installInput() {
