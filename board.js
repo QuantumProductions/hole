@@ -92,6 +92,7 @@ class Board extends Component {
 
   handleMessage(t, b) {
     if (t == 'draw') {
+      if (b.canvas.id != this.canvasId) { return; }
       this.paint(b.canvas, b.context);
     } else if (t == 'board-update') {
       this.assignRows(b);

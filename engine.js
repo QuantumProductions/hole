@@ -5,8 +5,8 @@ class Component {
     this.components = {};
     this.listeners = {};
     this.installDefaults();
-    this.init(o);
     this.canvasId = null;
+    this.init(o);
   }
 
   draw(canvas, context) {

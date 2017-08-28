@@ -2,11 +2,15 @@
 
 class Display extends Component {
   defaultInstalls() {
-    return [Player, Board];
+    return [Player, Board, Clock];
   }
 
   interestedTopics() {
     return ['got-table-id', 'got-table-info'];
+  }
+
+  parsedPlayers(json) {
+    return json;
   }
 
   handleMessage(title, body) {
@@ -14,11 +18,10 @@ class Display extends Component {
       console.log("Received table-id" + body.tableId);
       //begin getting table info on loop
     } else if (title == 'got-table-info') {
-      // console.log("got table");
-      var status = body.status;
-      var players = body.players;
       this.msg('board-update', body.board);
-      //send board
+      var pp = this.parsedPlayers(body.players);
+      this.msg('players-update', pp);
+      this.msg('status-update', body.status);
       //send status
       //send players
     }
