@@ -13,7 +13,7 @@ class Player extends Component {
   }
 
   interestedTopics() {
-    return ['start'];
+    return ['start', 'make-move'];
   }
 
   static main() {
@@ -115,6 +115,17 @@ class Player extends Component {
     //todo error handle
     var info = JSON.parse(JSON.parse(this.responseText));
     Player.p1.t.msg('got-table-info', info);
+  }
+
+  playing() {
+    return this.tableId; //todo, status?
+  }
+
+  handleMessage(t, b) {
+    if (!this.playing() {return;}
+    if (t == 'make-move') {
+
+    }
   }
 
 }

@@ -38,20 +38,23 @@ class Display extends Component {
   // 1 finding, 2 playing, 3 finished
 
   clicked(e) {
-    console.log(this.status.table_id);
-    if (!this.status.table_id) {
-      return;
-    }
-    let rect = this.boardCnv.getBoundingClientRect();
+    let rect = window.client.canvases[0].getBoundingClientRect();
     let r  = {x: 1 + Math.floor((e.clientX - rect.left) / (rect.width / 5)), 
       y: 1 + Math.floor((e.clientY - rect.top) / (rect.height / 5))};
-    // console.log("R pos" + JSON.stringify(r));
-    //calculate tile
-    this.makeMove(r);
+      console.log("r.x:" + r.x +"/r.y:"+r.y);
+    window.client.display.makeMove(r);
   }
 
   loopKeyboardInput(down, up, pressing, pressed) {
     //
+  }
+
+  onMouseDown(x, y) {
+    console.log("x: " + x +"/y: " + y);
+  }
+
+  makeMove(r) {
+    this.msg('make-move', {x: r.x, y: r.y, action: 'take'});
   }
   
 }

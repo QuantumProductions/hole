@@ -33,7 +33,6 @@ class Actions extends Component {
     let xal = 0.08 * w;
     let maxWidth = 0.5 * w;
     let h = canvas.height;
-    console.log(ctt.font);
     if (this.current == 'x') {
       let xnow = this.nowmoves(this.xa.current);
       ctt.fillText(xnow, xal, 0.2 * h, maxWidth * 1.06);    

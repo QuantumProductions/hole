@@ -162,8 +162,8 @@ class Client {
   }
 
   onMouseDown(event) {
-    var x = event.layerX;
-    var y = event.layerY;
-    this.game.onMouseDown(x, y);
+    // var x = event.layerX;
+    // var y = event.layerY;
+    this.display.clicked(event);
   }
 }
