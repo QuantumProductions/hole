@@ -3,7 +3,8 @@
 class Clock extends Component {
   init(o) {
     this.canvasId = 'actions';
-    this.state = null;
+    this.otime = 0;
+    this.xtime = 0;
   }
 
   interestedTopics() {

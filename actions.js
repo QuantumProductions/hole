@@ -1,29 +1,55 @@
 "use strict";
 
-class Actions extends View {
-   draw(ctt, x, y, w, h, s) {
-    ctt.font = '150pt Courier New';
-    ctt.fillStyle = Color.x
-    ctt.textAlign = 'left';
+class Actions extends Component {
+  init(o) {
+    this.canvasId = 'actions';
+    this.current = 'x';
+    this.xa = {current: 0, next: 0};
+    this.oa = {current: 0, next: 0};
+  }
 
+  interestedTopics() {
+    return ['status-update', 'players-update', 'draw'];
+  }
+
+  handleMessage(t, b) {
+    if (t == 'status-update') {
+      this.current = b.current_player;
+    } else if (t == 'players-update') {
+      this.xa = b.x.actions;
+      this.oa = b.x.actions;
+    } else if (t == 'draw') {
+      this.paint(b.canvas, b.context);
+    }
+  }
+
+  paint(canvas, ctt) {
+    if (canvas.id != this.canvasId) { return; }
+    var scale = canvas.width / 400;
+    var pts = scale * 60;
+    ctt.font = '' + pts +'pt Courier New';
+    ctt.fillStyle = Color.x;
+    let w = canvas.width;
     let xal = 0.08 * w;
     let maxWidth = 0.5 * w;
-    if (s.current == 'x') {
-      let xnow = this.nowmoves(s.x.points.now);
+    let h = canvas.height;
+    console.log(ctt.font);
+    if (this.current == 'x') {
+      let xnow = this.nowmoves(this.xa.current);
       ctt.fillText(xnow, xal, 0.2 * h, maxWidth * 1.06);    
     }
     
-    let xnext = this.nextmoves(s.x.points.next);
+    let xnext = this.nextmoves(this.xa.next);
     ctt.fillText(xnext, xal, 0.4 * h, maxWidth * 1.5);  
 
     ctt.fillStyle = Color.o;
 
-    if (s.current == 'o') {
-      let onow = this.nowmoves(s.o.points.now);
+    if (this.current == 'o') {
+      let onow = this.nowmoves(this.oa.current);
       ctt.fillText(onow, xal, 0.7 * h, maxWidth * 1.06);  
     }
     
-    let onext = this.nextmoves(s.o.points.next);
+    let onext = this.nextmoves(this.oa.next);
     ctt.fillText(onext, xal, 0.9 * h, maxWidth * 1.5);  
   }
 
@@ -33,7 +59,6 @@ class Actions extends View {
   }
 
   nextmoves(n) {
-    n = n + 2;
     if (n > 4) {
       n = 4;
     }

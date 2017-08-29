@@ -2,7 +2,7 @@
 
 class Display extends Component {
   defaultInstalls() {
-    return [Player, Board, Clock];
+    return [Player, Board, Clock, Actions];
   }
 
   interestedTopics() {
