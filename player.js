@@ -122,10 +122,16 @@ class Player extends Component {
   }
 
   handleMessage(t, b) {
-    if (!this.playing() {return;}
+    if (!this.playing()) {return;}
     if (t == 'make-move') {
-
+      http.get({
+        url: "http://localhost:8080/tables/play/" + this.tableId + "/" + this.status.name + "/" + this.status.auth + "/" + b.action + "/" + b.x + "/" + b.y,
+        onload: this.handleMadeMove
+      });     
     }
   }
 
+  handleMadeMove(res) {
+    console.log(this.responseText);
+  }
 }

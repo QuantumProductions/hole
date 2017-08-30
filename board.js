@@ -97,14 +97,6 @@ class Board extends Component {
     } else if (t == 'board-update') {
       this.assignRows(b);
     }
-    return;
-    if (t == 'click') {
-      console.log("clicked x/y", b.x + "/" + b.y);
-      //handle walling state here too
-      //convert to coordinates, this.t.m('make-move', ..._)
-    } else {
-      this.rows = b.rows;
-    }
   }
 
   static defaultRows(n, rows) {
