@@ -22,6 +22,8 @@ class Display extends Component {
       var pp = this.parsedPlayers(body.players);
       this.msg('players-update', pp);
       this.msg('status-update', body.status);
+      // console.log("The status is" + JSON.stringify(body.status));
+      // console.log(JSON.stringify(pp));
       //send status
       //send players
     }
@@ -54,6 +56,7 @@ class Display extends Component {
   }
 
   makeMove(r) {
+    console.log("Yes, sending make-move");
     this.msg('make-move', {x: r.x, y: r.y, action: 'take'});
   }
   
