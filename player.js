@@ -88,6 +88,7 @@ class Player extends Component {
 
     if (!this.tableId && this.ticks > 8) {
       console.log("Checking for game"); 
+      this.getPlayerInfo();
       this.ticks = 0;
     } else if (this.tableId && this.ticks > 2) {
       this.getTableInfo();
