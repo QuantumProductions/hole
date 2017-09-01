@@ -85,14 +85,14 @@ class Component {
 
 
       
-    let componentKeys = Object.keys(this.components);
-    for (let key of componentKeys) {
-      var c = this.components[key];
-      // console.log("key" + key);
-      // console.log(this.components);
-      // console.log(c);
-      this.components[key].msg(title, body);
-    }
+    // let componentKeys = Object.keys(this.components);
+    // for (let key of componentKeys) {
+    //   var c = this.components[key];
+    //   // console.log("key" + key);
+    //   // console.log(this.components);
+    //   // console.log(c);
+    //   this.components[key].msg(title, body);
+    // }
   }
 
   handleMessage(title, body) {
