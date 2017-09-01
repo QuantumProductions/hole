@@ -91,6 +91,10 @@ class Player extends Component {
       this.getPlayerInfo();
       this.ticks = 0;
     } else if (this.tableId && this.ticks > 2) {
+      if (this.moveMade > 0) {
+        this.moveMade--;
+        return;
+      }
       this.getTableInfo();
       this.ticks = 0;
     }
@@ -125,12 +129,17 @@ class Player extends Component {
   handleMessage(t, b) {
     if (!this.playing()) {return;}
     if (t == 'make-move') {
-      console.log("MAKING THAT MOVE");
+
+      this.moveMade = Player.moveMadeReset();
       http.get({
         url: "http://localhost:8080/tables/play/" + this.tableId + "/" + this.status.name + "/" + this.status.auth + "/" + b.action + "/" + b.x + "/" + b.y,
         onload: this.handleMadeMove
       });     
     }
+  }
+
+  static moveMadeReset() {
+    return 8;
   }
 
   handleMadeMove(res) {

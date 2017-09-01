@@ -7,7 +7,7 @@ class Board extends Component {
   }
 
   interestedTopics() {
-    return ['click', 'board-update', 'draw'];
+    return ['click', 'board-update', 'draw', 'make-move'];
   }
 
   paint(canvas, context) {
@@ -96,6 +96,8 @@ class Board extends Component {
       this.paint(b.canvas, b.context);
     } else if (t == 'board-update') {
       this.assignRows(b);
+    } else if (t == 'make-move') {
+      
     }
   }
 
