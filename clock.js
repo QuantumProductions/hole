@@ -18,7 +18,7 @@ class Clock extends Component {
       }
     } else if (t == 'players-update') {
       this.xtime = b.x.clock;
-      this.otime = b.x.clock;
+      this.otime = b.o.clock;
     } else if (t == 'draw') {
       this.paint(b.canvas, b.context);
     }
@@ -35,12 +35,12 @@ class Clock extends Component {
     ctt.fillText(xtime, 0.05 * canvas.width, 0.1 * canvas.height - 2, 0.5 * canvas.width);
     ctt.fillStyle = Color.o;
     let otime = this.time(this.otime);
-    ctt.fillText(xtime, 0.05 * canvas.width, 0.6 * canvas.height - 2, 0.5 * canvas.width);
+    ctt.fillText(otime, 0.05 * canvas.width, 0.6 * canvas.height - 2, 0.5 * canvas.width);
   }
 
   time(t) {
     let min = Math.floor(t / 6000);
-    let seconds = Math.floor(t / 10);
+    let seconds = Math.floor(t / 100);
     var sec = seconds % 60;
     if (sec == 0) {
       sec = "00";

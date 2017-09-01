@@ -23,7 +23,7 @@ class Display extends Component {
       this.msg('players-update', pp);
       this.msg('status-update', body.status);
       // console.log("The status is" + JSON.stringify(body.status));
-      // console.log(JSON.stringify(pp));
+      console.log(JSON.stringify(pp));
       //send status
       //send players
     }

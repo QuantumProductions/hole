@@ -17,7 +17,7 @@ class Actions extends Component {
       this.current = b.current_player;
     } else if (t == 'players-update') {
       this.xa = b.x.actions;
-      this.oa = b.x.actions;
+      this.oa = b.o.actions;
     } else if (t == 'draw') {
       this.paint(b.canvas, b.context);
     }
