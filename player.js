@@ -134,6 +134,11 @@ class Player extends Component {
   }
 
   handleMadeMove(res) {
-    console.log(this.responseText);
+    var j = JSON.parse(JSON.parse(this.responseText));
+    var b = j.board;
+    if (b) {
+      Player.p1.t.msg('board-update', b);  
+    }
+    
   }
 }
