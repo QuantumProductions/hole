@@ -23,7 +23,7 @@ class Display extends Component {
       this.msg('players-update', pp);
       this.msg('status-update', body.status);
       // console.log("The status is" + JSON.stringify(body.status));
-      console.log(JSON.stringify(pp));
+      // console.log(JSON.stringify(pp));
       //send status
       //send players
     }
@@ -49,9 +49,42 @@ class Display extends Component {
 
   mouseMoved(e) {
     let rect = window.client.canvases[0].getBoundingClientRect();
-    let r  = {x: 1 + Math.floor((e.clientX - rect.left) / (rect.width / 5)), 
-      y: 1 + Math.floor((e.clientY - rect.top) / (rect.height / 5))};
-      console.log("Mouse move. r.x:" + r.x +"/r.y:"+r.y);
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+    var wsize = rect.width / 5;
+    var hsize = rect.height / 5;
+    let r  = {x: 1 + Math.floor(mx / wsize), 
+      y: 1 + Math.floor(my / hsize)};
+      // console.log("Mouse move. r.x:" + r.x +"/r.y:"+r.y);
+    var centerX = ((r.x - 1) * hsize) + (0.5 * wsize);
+    var centerY = ((r.y - 1) * hsize) + (0.5 * hsize);
+    var xDist = mx - centerX;
+    var yDist = my - centerY;
+
+    var wall = null;
+    if (Math.abs(xDist > Math.abs(yDist))) {
+      console.log("yes");
+      if (xDist < -Math.abs(yDist)) {
+        wall = "west";
+      } else if (xDist > Math.abs(yDist)) {
+        wall = "east";
+      } else {
+      }
+    } else {
+      if (yDist < -Math.abs(xDist)) {
+        wall = "north";
+      } else if (yDist > Math.abs(xDist)) {
+        wall = "south";
+      }  
+    }
+
+    if (wall == null) {
+      console.log("yDist" + Math.abs(yDist));
+      console.log("xDist" + Math.abs(xDist));
+    }
+
+    console.log("Wall" + wall + "@" + r.x + "/" + r.y);
+    
   }
 
   loopKeyboardInput(down, up, pressing, pressed) {

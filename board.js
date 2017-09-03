@@ -121,9 +121,11 @@ class Board extends Component {
     for (var i = 0; i < 5; i++) {
       row.push(Board.defaultTile());
     }
+
+    return row;
   }
 
   static defaultTile() {
-    return {owner: null, status: "empty", wall: null};
+    return new Tile({owner: null, status: "empty", wall: null});
   }
 }

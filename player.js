@@ -40,6 +40,7 @@ class Player extends Component {
     this.status = {};
     this.ticks = 0;
     Player.p1 = this;
+    this.looping = false;
   }
 
   handleJoin(res) {
@@ -54,7 +55,7 @@ class Player extends Component {
 
   getPlayerInfo() {
     let name = this.status.name;
-    console.log("Getting player info: " + name);
+    // console.log("Getting player info: " + name);
     http.get({
       url: "http://localhost:8080/player/status/" + name,
       onload: this.handlePlayerInfo
@@ -62,21 +63,23 @@ class Player extends Component {
   }
 
   handlePlayerInfo(res) {
-    console.log("player info" + this.responseText);
-    console.log(res);
+    // console.log("player info" + this.responseText);
+    // console.log(res);
     var json = JSON.parse(JSON.parse(this.responseText));
     if (json.table_id) {
-      console.log("Table_id" + json.table_id);
+      // console.log("Table_id" + json.table_id);
       Player.p1.tableId = json.table_id;
       Player.p1.t.msg('got-table-id', Player.p1);
     } else if (json.status) {
-      console.log("Joined Player Status" + json.status);
+      // console.log("Joined Player Status" + json.status);
     }
     Player.p1.startLooping();
-    console.log(Player.main().status);
+    // console.log(Player.main().status);
   }
 
   startLooping() {
+    if (this.looping) { return; }
+    this.looping = true;
     console.log("initializing looping");
     console.log("Table id is" + this.tableId);   
 
@@ -87,7 +90,6 @@ class Player extends Component {
     this.ticks++;
 
     if (!this.tableId && this.ticks > 8) {
-      console.log("Checking for game"); 
       this.getPlayerInfo();
       this.ticks = 0;
     } else if (this.tableId && this.ticks > 2) {
