@@ -86,6 +86,46 @@ class Board extends Component {
       context.arc(UL[0] + 0.5 * squaresize - halfsep, UL[1] + 0.5 * squaresize - halfsep, recentSize, 0, 2 * Math.PI, false);
       context.fill();
     }
+
+    if (tileData.wall != "none") {
+      var W1;
+      var W2;
+      var W3;
+      var W4;
+      var thickness = 0.1 * squaresize;
+      if (tileData.wall == 'north') {
+        W1 = UL;
+        W2 = UR;
+        W3 = [UL[0], UL[1] + thickness];
+        W4 = [UR[0], UR[1] + thickness];
+      } else if (tileData.wall == 'east') {
+        W1 = UR;
+        W2 = BR;
+        W3 = [UR[0] - thickness, UR[1]];
+        W4 = [BR[0] - thickness, BR[1]];
+      } else if (tileData.wall == 'south') {
+        W1 = BR;
+        W2 = BL;
+        W3 = [BR[0], BR[1] - thickness];
+        W4 = [BL[0], BL[1] - thickness]
+      } else if (tileData.wall == 'west') {
+        W1 = BL;
+        W2 = UL;
+        W3 = [BL[0] + thickness, BL[1]];
+        W4 = [UL[0] + thickness, UL[1]];
+      }
+      if (!W1) { return;}
+      context.beginPath();
+      context.fillStyle = Color.wall;
+      context.moveTo(W1[0], W1[1]);
+      context.lineTo(W2[0], W2[1]);
+      context.lineTo(W4[0], W4[1]);
+      context.lineTo(W3[0], W3[1]);
+      context.lineTo(W1[0], W1[1]);
+      context.fill();
+
+
+    }
   }
 
   assignRows(json) {

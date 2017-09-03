@@ -15,10 +15,11 @@ class Color {
     Color.recent = "#FFFFFF";
     // Color.ridge = "#000000";
     Color.ridge = "#8c9999";
-    Color.wall = "#222222"; 
+    Color.outline = "#CCCCCC";
+    Color.wall = "#DDDDDD";
+    Color.wall = Color.outline;
     Color.clock = "black";
     // Color.bg = "#2980b9";
-    Color.outline = "#CCCCCC";
     Color.stroke1 = "#000000";
     Color.actions = "#125e49";
     Color.info = "#18568e";
