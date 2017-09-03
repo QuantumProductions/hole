@@ -35,6 +35,7 @@ class Client {
 
   installMouseInput() {
     this.canvases[0].addEventListener("click", this.onMouseDown.bind(this), false);
+    this.canvases[0].addEventListener("mousemove", this.onMouseMove.bind(this), false);
   }
 
   installKeyboardInput() {
@@ -165,5 +166,9 @@ class Client {
     // var x = event.layerX;
     // var y = event.layerY;
     this.display.clicked(event);
+  }
+
+  onMouseMove(event) {
+    this.display.mouseMoved(event);
   }
 }

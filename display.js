@@ -47,13 +47,17 @@ class Display extends Component {
     window.client.display.makeMove(r);
   }
 
+  mouseMoved(e) {
+    let rect = window.client.canvases[0].getBoundingClientRect();
+    let r  = {x: 1 + Math.floor((e.clientX - rect.left) / (rect.width / 5)), 
+      y: 1 + Math.floor((e.clientY - rect.top) / (rect.height / 5))};
+      console.log("Mouse move. r.x:" + r.x +"/r.y:"+r.y);
+  }
+
   loopKeyboardInput(down, up, pressing, pressed) {
     //
   }
 
-  onMouseDown(x, y) {
-    console.log("x: " + x +"/y: " + y);
-  }
 
   makeMove(r) {
     console.log("Yes, sending make-move");
