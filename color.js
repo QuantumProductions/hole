@@ -7,9 +7,9 @@ class Color {
     Color.x = "#51d8c8";
     // Color.o = "#16a085"
     Color.o = "#a5d266";
+    Color.empty = "#576666";
     // Color.empty = "#000000";
     // Color.empty = "#34495e";
-    Color.null = "#576666";
     Color.bg = "#4c5959";
     Color.boardBg = "#4c5959";
     Color.recent = "#FFFFFF";

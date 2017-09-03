@@ -22,7 +22,7 @@ class Board extends Component {
     var size = this.rows.length;
     var x = 0;
     var y = 0;
-    context.fillStyle = Color.outline;
+    context.fillStyle = Color.bg;
     for (var i = 0; i < size + 1; i++) {
       context.beginPath();
       context.moveTo(0, y - halfsep);
@@ -34,6 +34,7 @@ class Board extends Component {
       y += squaresize;
     }
     y = 0;
+    context.fillStyle = Color.bg;
     for (var i = 0; i < size + 1; i++) {
       context.beginPath();
       context.moveTo(x - halfsep, 0);

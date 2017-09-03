@@ -14,7 +14,7 @@ class Tile {
       return Color.o;
     }
 
-    return Color.null;
+    return Color.empty;
   }
 
   ridge() {
