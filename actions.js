@@ -38,7 +38,7 @@ class Actions extends Component {
       ctt.fillText(xnow, xal, 0.2 * h, maxWidth * 1.06);    
     }
     
-    let xnext = this.nextmoves(this.xa.next);
+    let xnext = this.current == 'x' ? this.nextmoves(this.xa.next) : this.nextmoves(this.xa.current);
     ctt.fillText(xnext, xal, 0.4 * h, maxWidth * 1.5);  
 
     ctt.fillStyle = Color.o;
@@ -48,7 +48,7 @@ class Actions extends Component {
       ctt.fillText(onow, xal, 0.7 * h, maxWidth * 1.06);  
     }
     
-    let onext = this.nextmoves(this.oa.next);
+    let onext = this.current == 'o' ? this.nextmoves(this.oa.next) : this.nextmoves(this.oa.current);
     ctt.fillText(onext, xal, 0.9 * h, maxWidth * 1.5);  
   }
 
