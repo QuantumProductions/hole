@@ -62,8 +62,7 @@ class Display extends Component {
     var yDist = my - centerY;
 
     var wall = null;
-    if (Math.abs(xDist > Math.abs(yDist))) {
-      console.log("yes");
+    if (Math.abs(xDist) > Math.abs(yDist)) {
       if (xDist < -Math.abs(yDist)) {
         wall = "west";
       } else if (xDist > Math.abs(yDist)) {
@@ -77,13 +76,6 @@ class Display extends Component {
         wall = "south";
       }  
     }
-
-    if (wall == null) {
-      console.log("yDist" + Math.abs(yDist));
-      console.log("xDist" + Math.abs(xDist));
-    }
-
-    console.log("Wall" + wall + "@" + r.x + "/" + r.y);
     
   }
 
