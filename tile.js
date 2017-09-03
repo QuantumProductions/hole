@@ -16,4 +16,12 @@ class Tile {
 
     return Color.null;
   }
+
+  ridge() {
+    return this.kind == 'ridge' || this.kind == 'ridge_recent';
+  }
+
+  recent() {
+    return this.kind == 'recent' || this.kind == 'ridge_recent'
+  }
 }

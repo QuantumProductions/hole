@@ -7,7 +7,7 @@ class Board extends Component {
   }
 
   interestedTopics() {
-    return ['click', 'board-update', 'draw', 'make-move'];
+    return ['click', 'board-update', 'draw'];
   }
 
   paint(canvas, context) {
@@ -77,6 +77,14 @@ class Board extends Component {
     context.lineTo(BL[0], BL[1]);
     context.lineTo(UL[0], UL[1]);
     context.fill();
+
+    if (tileData.recent()) {
+      var recentSize = squaresize * 0.10;
+      context.beginPath();
+      context.fillStyle = Color.recent;
+      context.arc(UL[0] + 0.5 * squaresize - halfsep, UL[1] + 0.5 * squaresize - halfsep, recentSize, 0, 2 * Math.PI, false);
+      context.fill();
+    }
   }
 
   assignRows(json) {
@@ -96,8 +104,6 @@ class Board extends Component {
       this.paint(b.canvas, b.context);
     } else if (t == 'board-update') {
       this.assignRows(b);
-    } else if (t == 'make-move') {
-      
     }
   }
 
