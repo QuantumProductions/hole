@@ -76,6 +76,9 @@ class Display extends Component {
         wall = "south";
       }  
     }
+
+    this.wall = wall;
+    this.wallR = r;
     
   }
 
@@ -86,7 +89,7 @@ class Display extends Component {
 
   makeMove(r) {
     console.log("Yes, sending make-move");
-    this.msg('make-move', {x: r.x, y: r.y, action: 'take'});
+    this.msg('make-move', {x: r.x, y: r.y, wall: this.wall});
   }
   
 }

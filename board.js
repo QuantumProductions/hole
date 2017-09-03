@@ -6,6 +6,10 @@ class Board extends Component {
     this.canvasId = 'board';
   }
 
+  getTile(x, y) {
+    return this.rows[y-1][x-1];
+  }
+
   interestedTopics() {
     return ['click', 'board-update', 'draw'];
   }

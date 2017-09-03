@@ -8,6 +8,10 @@ class Actions extends Component {
     this.oa = {current: 0, next: 0};
   }
 
+  canWall(tile) {
+    return this.current == tile.owner;
+  }
+
   interestedTopics() {
     return ['status-update', 'players-update', 'draw'];
   }

@@ -133,10 +133,20 @@ class Player extends Component {
     if (t == 'make-move') {
 
       this.moveMade = Player.moveMadeReset();
+
+      var actions = this.t.grab('Actions');
+      var board = this.t.grab('Board');
+
+      var canWall = actions.canWall(board.getTile(b.x, b.y));
+      var action = canWall ? b.wall : 'take';
+
+      console.log("the wall" + b.wall + "can: " + canWall);
+      console.log(action);
+
       http.get({
-        url: "http://localhost:8080/tables/play/" + this.tableId + "/" + this.status.name + "/" + this.status.auth + "/" + b.action + "/" + b.x + "/" + b.y,
+        url: "http://localhost:8080/tables/play/" + this.tableId + "/" + this.status.name + "/" + this.status.auth + "/" + action + "/" + b.x + "/" + b.y,
         onload: this.handleMadeMove
-      });     
+      })
     }
   }
 
