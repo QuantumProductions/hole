@@ -156,6 +156,7 @@ class Player extends Component {
 
   handleMadeMove(res) {
     var j = JSON.parse(JSON.parse(this.responseText));
+    console.log(j);
     var b = j.board;
     if (b) {
       Player.p1.t.msg('board-update', b);  
