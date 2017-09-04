@@ -15,9 +15,6 @@ class Board extends Component {
   }
 
   paint(canvas, context) {
-    // if (!this.rows) {
-    //   return;
-    // }
     var w = canvas.width;
     var squaresize = w / 5;
     var tilesize = squaresize * 0.96;
@@ -91,6 +88,41 @@ class Board extends Component {
       context.fill();
     }
 
+
+    if (tileData.ridge()) {
+      var R1 = UL;
+      var R2 = UR;
+      var R3 = BR;
+      var R4 = BL;
+
+    var ridge = 0.1 * squaresize;
+    var topLeft = [UL[0]+ ridge, UL[1] + ridge];
+    var bottomLeft = [BL[0] + ridge, BL[1] - ridge];
+    var topRight = [UR[0] - ridge, UR[1] + ridge];
+    var bottomRight = [BR[0] - ridge, BR[1] - ridge];
+
+    context.beginPath();
+    context.strokeStyle = Color.ridge;
+    context.lineWidth = 2;
+    context.moveTo(topLeft[0], topLeft[1]);
+    context.lineTo(bottomLeft[0], bottomLeft[1]);
+    context.stroke();
+    // context.beginPath();
+    context.lineTo(bottomRight[0], bottomRight[1]);
+    context.stroke();
+    // context.beginPath();
+    context.lineTo(topRight[0], topRight[1]);
+    context.stroke();
+    // context.beginPath();
+    context.lineTo(topLeft[0], topLeft[1]);
+    context.stroke();
+    
+   
+    context.stroke();
+    context.closePath();
+    context.lineWidth = 1;
+  }
+
     if (tileData.wall != "none") {
       var W1;
       var W2;
@@ -118,6 +150,7 @@ class Board extends Component {
         W3 = [BL[0] + thickness, BL[1]];
         W4 = [UL[0] + thickness, UL[1]];
       }
+
       if (!W1) { return;}
       context.beginPath();
       context.fillStyle = Color.wall;
@@ -127,9 +160,10 @@ class Board extends Component {
       context.lineTo(W3[0], W3[1]);
       context.lineTo(W1[0], W1[1]);
       context.fill();
-
-
     }
+
+
+
   }
 
   assignRows(json) {
