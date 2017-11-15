@@ -62,9 +62,9 @@ class Actions extends Component {
   }
 
   nextmoves(n) {
-    if (n > 4) {
-      n = 4;
-    }
+    // if (n > 4) {
+    //   n = 4;
+    // }
     return "" + n + " moves next turn"
   }
 }
