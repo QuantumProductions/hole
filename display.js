@@ -20,6 +20,7 @@ class Display extends Component {
     } else if (title == 'got-table-info') {
       this.msg('board-update', body.board);
       var pp = this.parsedPlayers(body.players);
+      console.log("pp" + JSON.stringify(pp));
       this.msg('players-update', pp);
       this.msg('status-update', body.status);
       // console.log("The status is" + JSON.stringify(body.status));
@@ -41,8 +42,8 @@ class Display extends Component {
 
   clicked(e) {
     let rect = window.client.canvases[0].getBoundingClientRect();
-    let r  = {x: 1 + Math.floor((e.clientX - rect.left) / (rect.width / 5)), 
-      y: 1 + Math.floor((e.clientY - rect.top) / (rect.height / 5))};
+    let r  = {x: 1 + Math.floor((e.clientX - rect.left) / (rect.width / 7)), 
+      y: 1 + Math.floor((e.clientY - rect.top) / (rect.height / 7))};
       console.log("r.x:" + r.x +"/r.y:"+r.y);
     window.client.display.makeMove(r);
   }
@@ -51,8 +52,8 @@ class Display extends Component {
     let rect = window.client.canvases[0].getBoundingClientRect();
     var mx = e.clientX - rect.left;
     var my = e.clientY - rect.top;
-    var wsize = rect.width / 5;
-    var hsize = rect.height / 5;
+    var wsize = rect.width / 7;
+    var hsize = rect.height / 7;
     let r  = {x: 1 + Math.floor(mx / wsize), 
       y: 1 + Math.floor(my / hsize)};
       // console.log("Mouse move. r.x:" + r.x +"/r.y:"+r.y);

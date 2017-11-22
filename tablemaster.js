@@ -4,7 +4,7 @@ class TableMaster {
   static getTableInfo(t, table_id) {
     TableMaster.t = t;
     http.get({
-      url: "http://localhost:8080/tables/status/" + tableName,
+      url: "http://localhost:8080/standard/tables/status/" + tableName,
       onload: this.handleTableInfo.bind(this)
     });    
   }

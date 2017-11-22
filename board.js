@@ -16,7 +16,7 @@ class Board extends Component {
 
   paint(canvas, context) {
     var w = canvas.width;
-    var squaresize = w / 5;
+    var squaresize = w / 7;
     var tilesize = squaresize * 0.96;
     var sepsize = squaresize * 0.04;
     var halfsep = sepsize * 0.5;
@@ -59,7 +59,7 @@ class Board extends Component {
 
   drawTile(tileData, x, y, context, canvas) {
     var w = canvas.width;
-    var squaresize = w / 5;
+    var squaresize = w / 7;
     var tilesize = squaresize * 0.96;
     var sepsize = squaresize * 0.04;
     var halfsep = sepsize * 0.5;

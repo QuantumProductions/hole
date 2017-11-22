@@ -30,7 +30,7 @@ class Player extends Component {
     this.status = {};
     Callback.hell = this;
     http.get({
-      url: "http://localhost:8080/join/" + this.name,
+      url: "http://localhost:8080/standard/join/" + this.name,
       onload: this.handleJoin
     });
   }
@@ -57,7 +57,7 @@ class Player extends Component {
     let name = this.status.name;
     // console.log("Getting player info: " + name);
     http.get({
-      url: "http://localhost:8080/player/status/" + name,
+      url: "http://localhost:8080/standard/player/status/" + name,
       onload: this.handlePlayerInfo
     })
   }
@@ -113,7 +113,7 @@ class Player extends Component {
     }
     // console.log("Getting table info: " + this.tableId);
     http.get({
-      url: "http://localhost:8080/tables/info/" + this.tableId,
+      url: "http://localhost:8080/standard/tables/info/" + this.tableId,
       onload: this.handleTableInfo
     })
   }
@@ -144,7 +144,7 @@ class Player extends Component {
       console.log(action);
 
       http.get({
-        url: "http://localhost:8080/tables/play/" + this.tableId + "/" + this.status.name + "/" + this.status.auth + "/" + action + "/" + b.x + "/" + b.y,
+        url: "http://localhost:8080/standard/tables/play/" + this.tableId + "/" + this.status.name + "/" + this.status.auth + "/" + action + "/" + b.x + "/" + b.y,
         onload: this.handleMadeMove
       })
     }
